@@ -391,7 +391,7 @@ function renderPayment(c){
     <p class="submitting-msg" id="submittingMsg" style="display:none">Submitting your order…</p>`;
 }
 
-async function submitOrder(){
+function submitOrder(){
   const btn=document.getElementById('submitBtn');
   const msg=document.getElementById('submittingMsg');
   btn.disabled=true;
@@ -401,14 +401,37 @@ async function submitOrder(){
   const order=window._pendingOrder;
 
   try{
-    await fetch(APPS_SCRIPT_URL,{
-      method:'POST',
-      mode:'no-cors',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify(order)
-    });
-    // no-cors means we can't read the response, but if it didn't throw it went through
-    showSuccess(order.ref, order.email);
+    // Use a hidden iframe + form to POST — this bypasses CORS restrictions
+    // that block fetch() from GitHub Pages to Apps Script
+    let iframe=document.getElementById('_submitFrame');
+    if(!iframe){
+      iframe=document.createElement('iframe');
+      iframe.name='_submitFrame';
+      iframe.id='_submitFrame';
+      iframe.style.display='none';
+      document.body.appendChild(iframe);
+    }
+
+    let form=document.createElement('form');
+    form.method='POST';
+    form.action=APPS_SCRIPT_URL;
+    form.target='_submitFrame';
+    form.style.display='none';
+
+    // Apps Script reads e.postData.contents, so we send the JSON as a field
+    const input=document.createElement('input');
+    input.type='hidden';
+    input.name='payload';
+    input.value=JSON.stringify(order);
+    form.appendChild(input);
+
+    document.body.appendChild(form);
+    form.submit();
+    document.body.removeChild(form);
+
+    // Wait 2 seconds then show success (we can't read iframe response cross-origin)
+    setTimeout(()=>showSuccess(order.ref, order.email), 2000);
+
   } catch(err){
     btn.disabled=false;
     btn.textContent='I\'ve sent the payment — submit order ✓';
