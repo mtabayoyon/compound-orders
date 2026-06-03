@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Compound Peptide Order Form</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  :root{
+    --bg:#f7f6f3;--surface:#ffffff;--border:#e2e0db;--border-strong:#c8c5be;
+    --text:#1a1916;--text-muted:#6b6860;--text-light:#9e9c97;
+    --accent:#1a4a3a;--accent-light:#e8f2ee;--accent-mid:#2d7a5f;
+    --danger:#c0392b;--amber:#92400e;--amber-light:#fffbeb;--amber-border:#d97706;
+    --venmo:#008CFF;--venmo-light:#e8f4ff;--radius:8px;--radius-lg:12px;
+  }
+  body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);font-size:15px;line-height:1.5;min-height:100vh}
+  .page-wrap{max-width:860px;margin:0 auto;padding:2rem 1.25rem 4rem}
+  .site-header{margin-bottom:2rem;padding-bottom:1.25rem;border-bottom:1px solid var(--border)}
+  .site-header h1{font-size:24px;font-weight:600;letter-spacing:-.02em}
+  .site-header p{font-size:13px;color:var(--text-muted);margin-top:3px}
+  .disclaimer{background:var(--amber-light);border:1px solid var(--amber-border);border-radius:var(--radius);padding:11px 14px;font-size:12px;color:var(--amber);margin-bottom:1.5rem;line-height:1.6}
+  .disclaimer strong{font-weight:600}
+  .search-wrap{position:relative;margin-bottom:1rem}
+  .search-wrap input{width:100%;padding:9px 12px 9px 14px;border:1px solid var(--border);border-radius:var(--radius);font-size:14px;font-family:'DM Sans',sans-serif;background:var(--surface);color:var(--text);outline:none;transition:border-color .15s}
+  .search-wrap input:focus{border-color:var(--accent-mid)}
+  .cat-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:1.25rem}
+  .cat-tab{font-size:12px;padding:5px 13px;border:1px solid var(--border);border-radius:20px;cursor:pointer;background:var(--surface);color:var(--text-muted);white-space:nowrap;font-family:'DM Sans',sans-serif;transition:all .15s}
+  .cat-tab:hover{border-color:var(--border-strong);color:var(--text)}
+  .cat-tab.active{background:var(--accent);color:#fff;border-color:var(--accent);font-weight:500}
+  .section-label{font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--text-light);margin:1.5rem 0 .625rem;font-family:'DM Mono',monospace}
+  .product-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(175px,1fr));gap:8px;margin-bottom:.5rem}
+  .product-card{border:1px solid var(--border);border-radius:var(--radius);padding:11px 13px;background:var(--surface);transition:border-color .15s,background .15s}
+  .product-card.in-cart{border-color:var(--accent-mid);background:var(--accent-light)}
+  .pc-sku{font-size:10px;color:var(--text-light);font-family:'DM Mono',monospace;margin-bottom:2px}
+  .pc-name{font-size:13px;font-weight:500;color:var(--text);line-height:1.3;margin-bottom:2px}
+  .pc-config{font-size:11px;color:var(--text-muted);margin-bottom:8px}
+  .pc-footer{display:flex;align-items:center;justify-content:space-between}
+  .pc-price{font-size:14px;font-weight:600;color:var(--text);font-family:'DM Mono',monospace}
+  .pc-qty{display:flex;align-items:center;gap:7px}
+  .qty-btn{width:24px;height:24px;border:1px solid var(--border-strong);border-radius:5px;background:var(--surface);color:var(--text);font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1;transition:background .1s;font-family:'DM Sans',sans-serif}
+  .qty-btn:hover{background:var(--bg)}
+  .qty-num{font-size:13px;font-weight:600;min-width:16px;text-align:center;color:var(--text);font-family:'DM Mono',monospace}
+  .cart-bar{position:sticky;bottom:0;background:var(--surface);border-top:1px solid var(--border);padding:13px 0;display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:2rem}
+  .cart-summary{font-size:14px;color:var(--text-muted)}
+  .cart-summary strong{color:var(--text);font-weight:600}
+  .btn-checkout{padding:10px 24px;background:var(--accent);color:#fff;border:none;border-radius:var(--radius);font-size:14px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;transition:background .15s}
+  .btn-checkout:hover{background:var(--accent-mid)}
+  .btn-checkout:disabled{opacity:.4;cursor:not-allowed;background:var(--accent)}
+  .modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);align-items:flex-start;justify-content:center;z-index:200;padding:2rem 1rem;overflow-y:auto}
+  .modal-bg.open{display:flex}
+  .modal{background:var(--surface);border-radius:var(--radius-lg);border:1px solid var(--border);width:100%;max-width:530px;padding:1.75rem;margin:auto}
+  .modal h2{font-size:18px;font-weight:600;margin-bottom:1.25rem;color:var(--text);letter-spacing:-.01em}
+  .modal h3{font-size:10px;font-weight:600;margin:1.25rem 0 .6rem;color:var(--text-light);letter-spacing:.1em;text-transform:uppercase;font-family:'DM Mono',monospace}
+  .form-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px}
+  .form-row.full{grid-template-columns:1fr}
+  .form-group{display:flex;flex-direction:column;gap:4px}
+  .form-group label{font-size:12px;color:var(--text-muted);font-weight:500}
+  .form-group input{padding:8px 11px;border:1px solid var(--border);border-radius:var(--radius);font-size:14px;font-family:'DM Sans',sans-serif;background:var(--surface);color:var(--text);outline:none;transition:border-color .15s}
+  .form-group input:focus{border-color:var(--accent-mid)}
+  .form-group input.error{border-color:var(--danger)}
+  .order-items{border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-bottom:1rem}
+  .order-item{display:flex;justify-content:space-between;align-items:center;padding:9px 13px;font-size:13px;border-bottom:1px solid var(--border)}
+  .order-item:last-child{border-bottom:none}
+  .order-item-name{font-weight:500;color:var(--text)}
+  .order-item-meta{color:var(--text-muted);font-size:11px;font-family:'DM Mono',monospace}
+  .order-item-price{color:var(--text);font-weight:600;font-family:'DM Mono',monospace;white-space:nowrap;margin-left:12px}
+  .total-row{display:flex;justify-content:space-between;padding:10px 13px;font-size:15px;font-weight:600;color:var(--text);background:var(--bg);border-radius:var(--radius);margin-bottom:1rem;font-family:'DM Mono',monospace}
+  .venmo-box{background:var(--venmo-light);border:1px solid var(--venmo);border-radius:var(--radius);padding:15px;margin-bottom:1rem}
+  .venmo-box .v-label{font-size:11px;color:var(--venmo);font-weight:600;margin-bottom:3px;text-transform:uppercase;letter-spacing:.05em}
+  .venmo-box .v-handle{font-size:22px;font-weight:700;color:#005cbf;font-family:'DM Mono',monospace}
+  .venmo-box .v-amount{font-size:13px;color:var(--venmo);margin-top:3px;font-family:'DM Mono',monospace}
+  .venmo-box .v-note{font-size:12px;color:var(--venmo);margin-top:8px;line-height:1.5;background:rgba(0,140,255,.08);border-radius:5px;padding:7px 9px}
+  .instructions{font-size:13px;color:var(--text-muted);line-height:1.7;margin-bottom:1rem;padding-left:1.2rem}
+  .instructions li{margin-bottom:4px}
+  .addr-display{background:var(--bg);border-radius:var(--radius);padding:10px 14px;font-size:13px;color:var(--text);line-height:1.7;margin-bottom:1rem;border:1px solid var(--border)}
+  .btn-row{display:flex;gap:8px;justify-content:flex-end;margin-top:1.25rem}
+  .btn-secondary{padding:9px 18px;border:1px solid var(--border-strong);border-radius:var(--radius);background:transparent;color:var(--text);font-size:14px;cursor:pointer;font-family:'DM Sans',sans-serif;transition:background .1s}
+  .btn-secondary:hover{background:var(--bg)}
+  .btn-primary{padding:9px 22px;background:var(--accent);color:#fff;border:none;border-radius:var(--radius);font-size:14px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;transition:background .15s}
+  .btn-primary:hover:not(:disabled){background:var(--accent-mid)}
+  .btn-primary:disabled{opacity:.5;cursor:not-allowed}
+  .success-box{text-align:center;padding:1.5rem 0}
+  .success-icon{width:56px;height:56px;background:#dcfce7;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;font-size:26px;color:#16a34a;font-weight:700}
+  .no-results{padding:2rem 0;text-align:center;color:var(--text-muted);font-size:14px}
+  .submitting-msg{font-size:13px;color:var(--text-muted);margin-top:.75rem;text-align:center}
+  @media(max-width:560px){.form-row{grid-template-columns:1fr}.product-grid{grid-template-columns:repeat(auto-fill,minmax(145px,1fr))}}
+</style>
+</head>
+<body>
+<div class="page-wrap">
+  <div class="site-header">
+    <h1>Compound Peptide Order Form</h1>
+    <p>Select products, adjust quantities, and proceed to checkout.</p>
+  </div>
+
+  <div class="disclaimer">
+    <strong>⚠ Research Use Only:</strong> These compounds are intended strictly for research purposes and are not for human consumption. They have not been evaluated by the FDA and are not intended to diagnose, treat, cure, or prevent any disease. By placing an order, you confirm that you are a qualified researcher and agree to use these compounds in full compliance with all applicable laws. Resale is strictly prohibited. Use at your own risk.
+  </div>
+
+  <input type="text" id="searchInput" placeholder="Search by name, SKU, or configuration…" oninput="filterProducts()" style="width:100%;padding:9px 12px;border:1px solid var(--border);border-radius:var(--radius);font-size:14px;font-family:'DM Sans',sans-serif;background:var(--surface);color:var(--text);outline:none;margin-bottom:1rem">
+
+  <div class="cat-tabs" id="catTabs"></div>
+  <div id="catalogContainer"></div>
+
+  <div class="cart-bar">
+    <div class="cart-summary" id="cartSummary">No items selected</div>
+    <button class="btn-checkout" id="checkoutBtn" disabled onclick="openCheckout()">Checkout →</button>
+  </div>
+</div>
+
+<div class="modal-bg" id="checkoutModal">
+  <div class="modal" id="modalContent"></div>
+</div>
+
+<script>
+// ─── IMPORTANT ──────────────────────────────────────────────
+// After you deploy Code.gs as a Web App, paste the deployment
+// URL here (looks like https://script.google.com/macros/s/AKfy.../exec)
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzreV6b4UruslM5jEDeMY0Pt_OM76aLL9GDpWtz1d6HwV-F9Pjj6zO5eCQgCrn7buARGA/exec';
+// ────────────────────────────────────────────────────────────
+
+const PRODUCTS=[
+  {sku:'SM5',name:'Semaglutide',config:'5mg/vial',price:125,cat:'GLP-1 / Weight Loss'},
+  {sku:'SM10',name:'Semaglutide',config:'10mg/vial',price:175,cat:'GLP-1 / Weight Loss'},
+  {sku:'SM15',name:'Semaglutide',config:'15mg/vial',price:225,cat:'GLP-1 / Weight Loss'},
+  {sku:'SM20',name:'Semaglutide',config:'20mg/vial',price:275,cat:'GLP-1 / Weight Loss'},
+  {sku:'SM30',name:'Semaglutide',config:'30mg/vial',price:350,cat:'GLP-1 / Weight Loss'},
+  {sku:'TR5',name:'Tirzepatide',config:'5mg/vial',price:75,cat:'GLP-1 / Weight Loss'},
+  {sku:'TR10',name:'Tirzepatide',config:'10mg/vial',price:100,cat:'GLP-1 / Weight Loss'},
+  {sku:'TR15',name:'Tirzepatide',config:'15mg/vial',price:125,cat:'GLP-1 / Weight Loss'},
+  {sku:'TR20',name:'Tirzepatide',config:'20mg/vial',price:162.50,cat:'GLP-1 / Weight Loss'},
+  {sku:'TR30',name:'Tirzepatide',config:'30mg/vial',price:225,cat:'GLP-1 / Weight Loss'},
+  {sku:'TR40',name:'Tirzepatide',config:'40mg/vial',price:287.50,cat:'GLP-1 / Weight Loss'},
+  {sku:'TR45',name:'Tirzepatide',config:'45mg/vial',price:325,cat:'GLP-1 / Weight Loss'},
+  {sku:'TR50',name:'Tirzepatide',config:'50mg/vial',price:362.50,cat:'GLP-1 / Weight Loss'},
+  {sku:'TR60',name:'Tirzepatide',config:'60mg/vial',price:425,cat:'GLP-1 / Weight Loss'},
+  {sku:'TR80',name:'Tirzepatide',config:'80mg/vial',price:462.50,cat:'GLP-1 / Weight Loss'},
+  {sku:'TR100',name:'Tirzepatide',config:'100mg/vial',price:750,cat:'GLP-1 / Weight Loss'},
+  {sku:'RT5',name:'Retatrutide',config:'5mg/vial',price:125,cat:'GLP-1 / Weight Loss'},
+  {sku:'RT10',name:'Retatrutide',config:'10mg/vial',price:162.50,cat:'GLP-1 / Weight Loss'},
+  {sku:'RT15',name:'Retatrutide',config:'15mg/vial',price:225,cat:'GLP-1 / Weight Loss'},
+  {sku:'RT20',name:'Retatrutide',config:'20mg/vial',price:275,cat:'GLP-1 / Weight Loss'},
+  {sku:'RT30',name:'Retatrutide',config:'30mg/vial',price:400,cat:'GLP-1 / Weight Loss'},
+  {sku:'RT40',name:'Retatrutide',config:'40mg/vial',price:525,cat:'GLP-1 / Weight Loss'},
+  {sku:'RT50',name:'Retatrutide',config:'50mg/vial',price:625,cat:'GLP-1 / Weight Loss'},
+  {sku:'RT60',name:'Retatrutide',config:'60mg/vial',price:737.50,cat:'GLP-1 / Weight Loss'},
+  {sku:'CGL5',name:'Cagrilintide',config:'5mg/vial',price:225,cat:'GLP-1 / Weight Loss'},
+  {sku:'CGL10',name:'Cagrilintide',config:'10mg/vial',price:450,cat:'GLP-1 / Weight Loss'},
+  {sku:'SUR10',name:'Survodutide',config:'10mg/vial',price:750,cat:'GLP-1 / Weight Loss'},
+  {sku:'MDT10',name:'Mazdutide',config:'10mg/vial',price:425,cat:'GLP-1 / Weight Loss'},
+  {sku:'RC10',name:'Retatrutide + Cagrilintide',config:'5mg+5mg/vial',price:325,cat:'Combo / Blends'},
+  {sku:'CS5',name:'Cagrilintide + Semaglutide',config:'5mg/vial',price:262.50,cat:'Combo / Blends'},
+  {sku:'CS10',name:'Cagrilintide + Semaglutide',config:'10mg/vial',price:475,cat:'Combo / Blends'},
+  {sku:'TSM5',name:'Tesamorelin',config:'5mg/vial',price:225,cat:'Growth Hormone'},
+  {sku:'TSM10',name:'Tesamorelin',config:'10mg/vial',price:425,cat:'Growth Hormone'},
+  {sku:'TSM20',name:'Tesamorelin (custom)',config:'20mg/vial',price:800,cat:'Growth Hormone'},
+  {sku:'Ti18',name:'IP 6mg + TSM 12mg (custom)',config:'18mg/vial',price:700,cat:'Growth Hormone'},
+  {sku:'SMO5',name:'Sermorelin Acetate',config:'5mg/vial',price:125,cat:'Growth Hormone'},
+  {sku:'SMO10',name:'Sermorelin Acetate',config:'10mg/vial',price:237.50,cat:'Growth Hormone'},
+  {sku:'CD5',name:'CJC-1295 DAC',config:'5mg/vial',price:350,cat:'Growth Hormone'},
+  {sku:'CND5',name:'CJC-1295 No DAC',config:'5mg/vial',price:175,cat:'Growth Hormone'},
+  {sku:'CND10',name:'CJC-1295 No DAC',config:'10mg/vial',price:325,cat:'Growth Hormone'},
+  {sku:'CP10',name:'CJC-1295 No DAC + Ipamorelin',config:'5mg+5mg/vial',price:200,cat:'Growth Hormone'},
+  {sku:'CP20',name:'CJC-1295 No DAC + Ipamorelin',config:'10mg+10mg/vial',price:300,cat:'Growth Hormone'},
+  {sku:'IP5',name:'Ipamorelin',config:'5mg/vial',price:75,cat:'Growth Hormone'},
+  {sku:'IP10',name:'Ipamorelin',config:'10mg/vial',price:150,cat:'Growth Hormone'},
+  {sku:'G65',name:'GHRP-6 Acetate',config:'5mg/vial',price:50,cat:'Growth Hormone'},
+  {sku:'FMP2',name:'PEG MGF',config:'2mg/vial',price:200,cat:'Growth Hormone'},
+  {sku:'IG01',name:'IGF-1 LR3',config:'0.1mg/vial',price:85,cat:'Growth Hormone'},
+  {sku:'IG1',name:'IGF-1 LR3',config:'1mg/vial',price:500,cat:'Growth Hormone'},
+  {sku:'BC5',name:'BPC-157',config:'5mg/vial',price:92.50,cat:'Recovery / Healing'},
+  {sku:'BC10',name:'BPC-157',config:'10mg/vial',price:175,cat:'Recovery / Healing'},
+  {sku:'BC20',name:'BPC-157',config:'20mg/vial',price:350,cat:'Recovery / Healing'},
+  {sku:'TB5',name:'TB-500 / TB4',config:'5mg/vial',price:162.50,cat:'Recovery / Healing'},
+  {sku:'TB10',name:'TB-500 / TB4',config:'10mg/vial',price:300,cat:'Recovery / Healing'},
+  {sku:'BB10',name:'BPC-157 + TB-500',config:'5mg+5mg/vial',price:200,cat:'Recovery / Healing'},
+  {sku:'BB20',name:'BPC-157 + TB-500',config:'10mg+10mg/vial',price:375,cat:'Recovery / Healing'},
+  {sku:'BBG70',name:'GLOW Blend',config:'BPC+GHK-Cu+TB500 / 70mg',price:400,cat:'Recovery / Healing'},
+  {sku:'BBGK',name:'KLOW Blend',config:'BPC+GHK-Cu+TB500+KPV / 80mg',price:450,cat:'Recovery / Healing'},
+  {sku:'CU50',name:'GHK-Cu',config:'50mg/vial',price:60,cat:'Anti-Aging / Longevity'},
+  {sku:'CU100',name:'GHK-Cu',config:'100mg/vial',price:120,cat:'Anti-Aging / Longevity'},
+  {sku:'ET10',name:'Epithalon',config:'10mg/vial',price:125,cat:'Anti-Aging / Longevity'},
+  {sku:'ET50',name:'Epithalon',config:'50mg/vial',price:300,cat:'Anti-Aging / Longevity'},
+  {sku:'MS10',name:'MOTS-c',config:'10mg/vial',price:125,cat:'Anti-Aging / Longevity'},
+  {sku:'MS40',name:'MOTS-c',config:'40mg/vial',price:450,cat:'Anti-Aging / Longevity'},
+  {sku:'2S10',name:'SS-31',config:'10mg/vial',price:187.50,cat:'Anti-Aging / Longevity'},
+  {sku:'2S50',name:'SS-31',config:'50mg/vial',price:875,cat:'Anti-Aging / Longevity'},
+  {sku:'TA5',name:'Thymosin Alpha-1',config:'5mg/vial',price:162.50,cat:'Anti-Aging / Longevity'},
+  {sku:'TA10',name:'Thymosin Alpha-1',config:'10mg/vial',price:325,cat:'Anti-Aging / Longevity'},
+  {sku:'NJ500',name:'NAD+',config:'500mg/vial',price:225,cat:'Anti-Aging / Longevity'},
+  {sku:'NJ1000',name:'NAD+',config:'1000mg/vial',price:300,cat:'Anti-Aging / Longevity'},
+  {sku:'GTT',name:'Glutathione',config:'1500mg/vial',price:250,cat:'Anti-Aging / Longevity'},
+  {sku:'CBL60',name:'Cerebrolysin',config:'60mg/vial',price:212.50,cat:'Anti-Aging / Longevity'},
+  {sku:'TY10',name:'Thymalin',config:'10mg/vial',price:125,cat:'Anti-Aging / Longevity'},
+  {sku:'PI5',name:'Pinealon',config:'5mg/vial',price:150,cat:'Anti-Aging / Longevity'},
+  {sku:'PI10',name:'Pinealon',config:'10mg/vial',price:225,cat:'Anti-Aging / Longevity'},
+  {sku:'PI20',name:'Pinealon',config:'20mg/vial',price:375,cat:'Anti-Aging / Longevity'},
+  {sku:'5AM5',name:'5-Amino-1MQ',config:'5mg/vial',price:100,cat:'Anti-Aging / Longevity'},
+  {sku:'5AM10',name:'5-Amino-1MQ',config:'10mg/vial',price:150,cat:'Anti-Aging / Longevity'},
+  {sku:'5AM50',name:'5-Amino-1MQ',config:'50mg/vial',price:250,cat:'Anti-Aging / Longevity'},
+  {sku:'XA5',name:'Semax',config:'5mg/vial',price:100,cat:'Cognitive / Neuro'},
+  {sku:'XA11',name:'Semax',config:'10mg/vial',price:175,cat:'Cognitive / Neuro'},
+  {sku:'SK5',name:'Selank',config:'5mg/vial',price:100,cat:'Cognitive / Neuro'},
+  {sku:'SK11',name:'Selank',config:'10mg/vial',price:200,cat:'Cognitive / Neuro'},
+  {sku:'KA10',name:'Selank + Semax',config:'5mg+5mg/vial',price:170,cat:'Cognitive / Neuro'},
+  {sku:'KA20',name:'Selank + Semax',config:'10mg+10mg/vial',price:320,cat:'Cognitive / Neuro'},
+  {sku:'VIP5',name:'VIP (Vasoactive Intestinal Peptide)',config:'5mg/vial',price:187.50,cat:'Cognitive / Neuro'},
+  {sku:'VIP10',name:'VIP (Vasoactive Intestinal Peptide)',config:'10mg/vial',price:350,cat:'Cognitive / Neuro'},
+  {sku:'DS5',name:'DSIP',config:'5mg/vial',price:125,cat:'Cognitive / Neuro'},
+  {sku:'DS15',name:'DSIP',config:'15mg/vial',price:350,cat:'Cognitive / Neuro'},
+  {sku:'KPV5',name:'KPV',config:'5mg/vial',price:87.50,cat:'Immune / Inflammation'},
+  {sku:'KPV10',name:'KPV',config:'10mg/vial',price:137.50,cat:'Immune / Inflammation'},
+  {sku:'LL37',name:'LL-37',config:'5mg/vial',price:187.50,cat:'Immune / Inflammation'},
+  {sku:'NP810',name:'Snap-8',config:'10mg/vial',price:100,cat:'Immune / Inflammation'},
+  {sku:'PC10',name:'PNC-27',config:'10mg/vial',price:350,cat:'Immune / Inflammation'},
+  {sku:'MT1',name:'Melanotan 1',config:'10mg/vial',price:125,cat:'Sexual Health'},
+  {sku:'ML10',name:'Melanotan 2 (MT-2)',config:'10mg/vial',price:100,cat:'Sexual Health'},
+  {sku:'P41',name:'PT-141 (Bremelanotide)',config:'10mg/vial',price:137.50,cat:'Sexual Health'},
+  {sku:'G5K',name:'HCG',config:'5,000 IU/vial',price:187.50,cat:'Sexual Health'},
+  {sku:'G10K',name:'HCG',config:'10,000 IU/vial',price:300,cat:'Sexual Health'},
+  {sku:'G75',name:'HMG',config:'75 IU/vial',price:175,cat:'Sexual Health'},
+  {sku:'KS5',name:'KissPeptin-10',config:'5mg/vial',price:125,cat:'Sexual Health'},
+  {sku:'KS10',name:'KissPeptin-10',config:'10mg/vial',price:175,cat:'Sexual Health'},
+  {sku:'LC500',name:'L-Carnitine',config:'500mg/10mL',price:175,cat:'IV / Injectable Blends'},
+  {sku:'B12',name:'Vitamin B12',config:'10mL/vial',price:112.50,cat:'IV / Injectable Blends'},
+  {sku:'LC120',name:'MIC + Carnitine Blend',config:'120mg/mL (10mL)',price:175,cat:'IV / Injectable Blends'},
+  {sku:'LC216',name:'Amino + Vitamin Blend',config:'216mg/mL (10mL)',price:175,cat:'IV / Injectable Blends'},
+  {sku:'HHB',name:'Healthy Hair Skin Nails',config:'150.3mg/mL (10mL)',price:375,cat:'IV / Injectable Blends'},
+  {sku:'SHB',name:'Super Human Blend',config:'865mg/10mL',price:375,cat:'IV / Injectable Blends'},
+  {sku:'RP226',name:'Relaxation PM',config:'226mg/mL (10mL)',price:375,cat:'IV / Injectable Blends'},
+  {sku:'LC553',name:'Super Shred',config:'553mg/mL (10mL)',price:375,cat:'IV / Injectable Blends'},
+  {sku:'LC526',name:'Lipo-C Fat Blaster',config:'526mg/mL (10mL)',price:400,cat:'IV / Injectable Blends'},
+  {sku:'LB',name:'Lemon Bottle',config:'10mg/vial',price:175,cat:'IV / Injectable Blends'},
+  {sku:'WA3',name:'Sterile Water',config:'3mL/vial',price:22.50,cat:'Reconstitution Supplies'},
+  {sku:'WA10',name:'Sterile Water',config:'10mL/vial',price:30,cat:'Reconstitution Supplies'},
+  {sku:'BA3',name:'Bacteriostatic Water',config:'3mL/vial',price:25,cat:'Reconstitution Supplies'},
+  {sku:'BA10',name:'Bacteriostatic Water',config:'10mL/vial',price:37.50,cat:'Reconstitution Supplies'},
+];
+
+const CATS=['All',...new Set(PRODUCTS.map(p=>p.cat))];
+let cart={}, activeCat='All', searchQ='';
+
+const fmt=n=>'$'+n.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g,',');
+
+function renderTabs(){
+  document.getElementById('catTabs').innerHTML=CATS.map(c=>`<div class="cat-tab${c===activeCat?' active':''}" onclick="setCat('${c.replace(/'/g,"\\'")}')"> ${c}</div>`).join('');
+}
+function setCat(c){activeCat=c;renderCatalog();renderTabs();}
+function filterProducts(){searchQ=document.getElementById('searchInput').value.toLowerCase();renderCatalog();}
+
+function renderCatalog(){
+  const groups={};
+  PRODUCTS.filter(p=>(activeCat==='All'||p.cat===activeCat)&&(!searchQ||p.name.toLowerCase().includes(searchQ)||p.sku.toLowerCase().includes(searchQ)||p.config.toLowerCase().includes(searchQ)))
+    .forEach(p=>{if(!groups[p.cat])groups[p.cat]=[];groups[p.cat].push(p);});
+  const c=document.getElementById('catalogContainer');
+  if(!Object.keys(groups).length){c.innerHTML='<div class="no-results">No products match your search.</div>';return;}
+  c.innerHTML=Object.entries(groups).map(([cat,prods])=>`<div class="section-label">${cat}</div><div class="product-grid">${prods.map(renderCard).join('')}</div>`).join('');
+}
+
+function renderCard(p){
+  const qty=cart[p.sku]||0;
+  return `<div class="product-card${qty>0?' in-cart':''}" id="card-${p.sku}">
+    <div class="pc-sku">${p.sku}</div>
+    <div class="pc-name">${p.name}</div>
+    <div class="pc-config">${p.config}</div>
+    <div class="pc-footer">
+      <div class="pc-price">${fmt(p.price)}</div>
+      <div class="pc-qty">
+        <button class="qty-btn" onclick="changeQty('${p.sku}',-1)">−</button>
+        <span class="qty-num" id="qty-${p.sku}">${qty}</span>
+        <button class="qty-btn" onclick="changeQty('${p.sku}',1)">+</button>
+      </div>
+    </div>
+  </div>`;
+}
+
+function changeQty(sku,delta){
+  cart[sku]=Math.max(0,(cart[sku]||0)+delta);
+  if(!cart[sku])delete cart[sku];
+  const q=document.getElementById('qty-'+sku);
+  const c=document.getElementById('card-'+sku);
+  if(q)q.textContent=cart[sku]||0;
+  if(c){if(cart[sku])c.classList.add('in-cart');else c.classList.remove('in-cart');}
+  updateCartBar();
+}
+
+const cartTotal=()=>Object.entries(cart).reduce((s,[k,v])=>{const p=PRODUCTS.find(x=>x.sku===k);return s+(p?p.price*v:0);},0);
+const cartCount=()=>Object.values(cart).reduce((s,v)=>s+v,0);
+
+function updateCartBar(){
+  const n=cartCount(),t=cartTotal();
+  document.getElementById('cartSummary').innerHTML=n?`<strong>${n} item${n!==1?'s':''}</strong> &nbsp;·&nbsp; ${fmt(t)}`:'No items selected';
+  document.getElementById('checkoutBtn').disabled=!n;
+}
+
+function openCheckout(){document.getElementById('checkoutModal').classList.add('open');renderStep1();}
+function closeModal(){document.getElementById('checkoutModal').classList.remove('open');}
+
+function renderStep1(){
+  document.getElementById('modalContent').innerHTML=`
+    <h2>Your order</h2>
+    <div class="order-items">
+      ${Object.entries(cart).map(([sku,qty])=>{const p=PRODUCTS.find(x=>x.sku===sku);return`<div class="order-item"><div><div class="order-item-name">${p.name}</div><div class="order-item-meta">${p.config} &nbsp;·&nbsp; ${p.sku} &nbsp;·&nbsp; Qty ${qty}</div></div><div class="order-item-price">${fmt(p.price*qty)}</div></div>`;}).join('')}
+    </div>
+    <div class="total-row"><span>Order total</span><span>${fmt(cartTotal())}</span></div>
+    <h3>Contact information</h3>
+    <div class="form-row">
+      <div class="form-group"><label>First name *</label><input id="f_first" placeholder="Jane"></div>
+      <div class="form-group"><label>Last name *</label><input id="f_last" placeholder="Smith"></div>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label>Email *</label><input id="f_email" type="email" placeholder="jane@example.com"></div>
+      <div class="form-group"><label>Phone</label><input id="f_phone" type="tel" placeholder="(555) 000-0000"></div>
+    </div>
+    <h3>Shipping address</h3>
+    <div class="form-row full"><div class="form-group"><label>Street address *</label><input id="f_addr1" placeholder="123 Main St"></div></div>
+    <div class="form-row full"><div class="form-group"><label>Apt / Suite</label><input id="f_addr2" placeholder="Apt 4B"></div></div>
+    <div class="form-row">
+      <div class="form-group"><label>City *</label><input id="f_city" placeholder="San Francisco"></div>
+      <div class="form-group"><label>State *</label><input id="f_state" placeholder="CA"></div>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label>ZIP *</label><input id="f_zip" placeholder="94102"></div>
+      <div class="form-group"><label>Country</label><input id="f_country" value="United States"></div>
+    </div>
+    <div class="form-row full" style="margin-top:4px"><div class="form-group"><label>Order notes</label><input id="f_notes" placeholder="Special instructions…"></div></div>
+    <div class="btn-row">
+      <button class="btn-secondary" onclick="closeModal()">Cancel</button>
+      <button class="btn-primary" onclick="submitContact()">Continue to payment →</button>
+    </div>`;
+}
+
+function submitContact(){
+  const g=id=>document.getElementById(id).value.trim();
+  const req=['f_first','f_last','f_email','f_addr1','f_city','f_state','f_zip'];
+  req.forEach(id=>document.getElementById(id).classList.remove('error'));
+  const missing=req.filter(id=>!g(id));
+  if(missing.length){missing.forEach(id=>document.getElementById(id).classList.add('error'));return;}
+  renderPayment({first:g('f_first'),last:g('f_last'),email:g('f_email'),phone:g('f_phone'),addr1:g('f_addr1'),addr2:g('f_addr2'),city:g('f_city'),state:g('f_state'),zip:g('f_zip'),country:g('f_country')||'United States',notes:g('f_notes')});
+}
+
+function renderPayment(c){
+  const total=cartTotal();
+  const ref='ORD-'+Math.random().toString(36).slice(2,8).toUpperCase();
+  // Store for submission
+  window._pendingOrder={...c,ref,total,
+    items:Object.entries(cart).map(([sku,qty])=>{
+      const p=PRODUCTS.find(x=>x.sku===sku);
+      return{sku,name:p.name,config:p.config,qty,price:p.price,lineTotal:p.price*qty};
+    })
+  };
+  document.getElementById('modalContent').innerHTML=`
+    <h2>Send payment via Venmo</h2>
+    <div class="venmo-box">
+      <div class="v-label">Venmo handle</div>
+      <div class="v-handle">@michael-taba</div>
+      <div class="v-amount">Amount: <strong>${fmt(total)}</strong></div>
+      <div class="v-note">Include in your Venmo note:<br><strong>${ref} — ${c.first} ${c.last}</strong></div>
+    </div>
+    <h3>Payment steps</h3>
+    <ol class="instructions">
+      <li>Open Venmo and tap <strong>Pay or Request</strong></li>
+      <li>Search for <strong>@michael-taba</strong> and select the account</li>
+      <li>Enter the exact amount: <strong>${fmt(total)}</strong></li>
+      <li>In the note field type: <strong>${ref} — ${c.first} ${c.last}</strong></li>
+      <li>Tap <strong>Pay</strong> (do not mark as "Goods &amp; Services")</li>
+      <li>Click the button below to confirm your order — your details will be sent and logged automatically</li>
+    </ol>
+    <h3>Shipping to</h3>
+    <div class="addr-display">
+      ${c.first} ${c.last}<br>
+      ${c.addr1}${c.addr2?' '+c.addr2:''}<br>
+      ${c.city}, ${c.state} ${c.zip}<br>
+      ${c.country}
+      ${c.phone?`<br><span style="color:var(--text-muted)">${c.phone}</span>`:''}
+      ${c.notes?`<br><span style="color:var(--text-muted)">Note: ${c.notes}</span>`:''}
+    </div>
+    <div class="order-items">
+      ${Object.entries(cart).map(([sku,qty])=>{const p=PRODUCTS.find(x=>x.sku===sku);return`<div class="order-item"><div><div class="order-item-name">${p.name}</div><div class="order-item-meta">${p.config} · Qty ${qty}</div></div><div class="order-item-price">${fmt(p.price*qty)}</div></div>`;}).join('')}
+      <div class="order-item" style="font-weight:600"><span>Total</span><span class="order-item-price">${fmt(total)}</span></div>
+    </div>
+    <p style="font-size:11px;color:var(--text-light);line-height:1.5;padding:9px 11px;border:1px solid var(--border);border-radius:var(--radius);margin-bottom:1rem">
+      By completing this order you confirm these compounds are for research purposes only, not for human consumption, and not for resale.
+    </p>
+    <div class="btn-row">
+      <button class="btn-secondary" onclick="renderStep1()">← Back</button>
+      <button class="btn-primary" id="submitBtn" onclick="submitOrder()">I've sent the payment — submit order ✓</button>
+    </div>
+    <p class="submitting-msg" id="submittingMsg" style="display:none">Submitting your order…</p>`;
+}
+
+async function submitOrder(){
+  const btn=document.getElementById('submitBtn');
+  const msg=document.getElementById('submittingMsg');
+  btn.disabled=true;
+  btn.textContent='Submitting…';
+  msg.style.display='block';
+
+  const order=window._pendingOrder;
+
+  try{
+    await fetch(APPS_SCRIPT_URL,{
+      method:'POST',
+      mode:'no-cors',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify(order)
+    });
+    // no-cors means we can't read the response, but if it didn't throw it went through
+    showSuccess(order.ref, order.email);
+  } catch(err){
+    btn.disabled=false;
+    btn.textContent='I\'ve sent the payment — submit order ✓';
+    msg.style.display='none';
+    alert('There was a problem submitting your order. Please try again or contact us directly.');
+  }
+}
+
+function showSuccess(ref,email){
+  document.getElementById('modalContent').innerHTML=`
+    <div class="success-box">
+      <div class="success-icon">✓</div>
+      <h2>Order submitted!</h2>
+      <p style="font-size:14px;color:var(--text-muted);margin:.5rem 0 1rem">Reference: <strong style="color:var(--text);font-family:'DM Mono',monospace">${ref}</strong></p>
+      <p style="font-size:13px;color:var(--text-muted);line-height:1.7">
+        Your order has been logged and a notification has been sent. Once your Venmo payment is verified, your order will ship within 2–4 business days.<br><br>
+        A confirmation will be sent to <strong>${email}</strong>.
+      </p>
+      <div style="margin-top:1.5rem">
+        <button class="btn-primary" onclick="closeModal();resetCart()">Place another order</button>
+      </div>
+    </div>`;
+}
+
+function resetCart(){cart={};updateCartBar();renderCatalog();}
+
+renderTabs();
+renderCatalog();
+updateCartBar();
+</script>
+</body>
+</html>
