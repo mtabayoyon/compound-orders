@@ -121,6 +121,7 @@
 
 <script>
 const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyYZ9OMNIQP7RVfnMvskGcbuwMVg3RuaMKtYxpH8gbxBNx81AG3vtAGmXOAJSQvk09UTw/exec';
+const SHIPPING = 30;
 
 // Each compound: name, info blurb, category, variants [{sku, config, price}]
 const COMPOUNDS = [
@@ -592,12 +593,13 @@ function changeQty(id, delta){
   updateCartBar();
 }
 
-function cartTotal(){
+function subtotal(){
   return Object.values(cart).reduce((s,e) => {
     const v = e.compound.variants[e.variantIdx];
     return s + v.price * e.qty;
   }, 0);
 }
+function cartTotal(){ return subtotal() + SHIPPING; }
 function cartCount(){ return Object.values(cart).reduce((s,e) => s+e.qty, 0); }
 
 function updateCartBar(){
@@ -625,6 +627,8 @@ function renderStep1(){
   document.getElementById('modalContent').innerHTML=`
     <h2>Your order</h2>
     <div class="order-items">${items}</div>
+    <div class="total-row" style="background:transparent;font-weight:400;font-size:13px;padding:6px 13px"><span style="color:var(--text-muted)">Subtotal</span><span style="color:var(--text-muted)">${fmt(subtotal())}</span></div>
+    <div class="total-row" style="background:transparent;font-weight:400;font-size:13px;padding:6px 13px"><span style="color:var(--text-muted)">Shipping</span><span style="color:var(--text-muted)">$30.00</span></div>
     <div class="total-row"><span>Order total</span><span>${fmt(cartTotal())}</span></div>
     <h3>Contact information</h3>
     <div class="form-row">
