@@ -22,8 +22,7 @@
   .site-header p{font-size:13px;color:var(--text-muted);margin-top:3px}
   .disclaimer{background:var(--amber-light);border:1px solid var(--amber-border);border-radius:var(--radius);padding:11px 14px;font-size:12px;color:var(--amber);margin-bottom:1.5rem;line-height:1.6}
   .disclaimer strong{font-weight:600}
-  .search-wrap{position:relative;margin-bottom:1rem}
-  .search-wrap input{width:100%;padding:9px 12px 9px 14px;border:1px solid var(--border);border-radius:var(--radius);font-size:14px;font-family:'DM Sans',sans-serif;background:var(--surface);color:var(--text);outline:none;transition:border-color .15s}
+  .search-wrap input{width:100%;padding:9px 12px;border:1px solid var(--border);border-radius:var(--radius);font-size:14px;font-family:'DM Sans',sans-serif;background:var(--surface);color:var(--text);outline:none;transition:border-color .15s;margin-bottom:1rem}
   .search-wrap input:focus{border-color:var(--accent-mid)}
   .cat-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:1.25rem}
   .cat-tab{font-size:12px;padding:5px 13px;border:1px solid var(--border);border-radius:20px;cursor:pointer;background:var(--surface);color:var(--text-muted);white-space:nowrap;font-family:'DM Sans',sans-serif;transition:all .15s}
@@ -33,7 +32,7 @@
   .product-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(175px,1fr));gap:8px;margin-bottom:.5rem}
   .product-card{border:1px solid var(--border);border-radius:var(--radius);padding:11px 13px;background:var(--surface);transition:border-color .15s,background .15s}
   .product-card.in-cart{border-color:var(--accent-mid);background:var(--accent-light)}
-  .pc-sku{font-size:10px;color:var(--text-light);font-family:'DM Mono',monospace;margin-bottom:2px}
+  .pc-sku{font-size:10px;color:var(--text-light);font-family:'DM Mono',monospace;margin-bottom:2px;display:flex;align-items:center;gap:5px}
   .pc-name{font-size:13px;font-weight:500;color:var(--text);line-height:1.3;margin-bottom:2px}
   .pc-config{font-size:11px;color:var(--text-muted);margin-bottom:8px}
   .pc-footer{display:flex;align-items:center;justify-content:space-between}
@@ -42,6 +41,10 @@
   .qty-btn{width:24px;height:24px;border:1px solid var(--border-strong);border-radius:5px;background:var(--surface);color:var(--text);font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1;transition:background .1s;font-family:'DM Sans',sans-serif}
   .qty-btn:hover{background:var(--bg)}
   .qty-num{font-size:13px;font-weight:600;min-width:16px;text-align:center;color:var(--text);font-family:'DM Mono',monospace}
+  .info-btn{display:inline-flex;align-items:center;justify-content:center;width:15px;height:15px;border-radius:50%;background:var(--accent-light);border:1px solid var(--accent-mid);color:var(--accent);font-size:9px;font-weight:700;cursor:pointer;font-family:'DM Mono',monospace;line-height:1;flex-shrink:0;padding:0}
+  .info-btn:hover{background:var(--accent);color:#fff}
+  .pc-info{font-size:11px;color:var(--text-muted);line-height:1.5;margin:4px 0 8px;padding:7px 9px;background:var(--bg);border-radius:5px;border-left:2px solid var(--accent-mid)}
+  .pc-info.hidden{display:none}
   .cart-bar{position:sticky;bottom:0;background:var(--surface);border-top:1px solid var(--border);padding:13px 0;display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:2rem}
   .cart-summary{font-size:14px;color:var(--text-muted)}
   .cart-summary strong{color:var(--text);font-weight:600}
@@ -96,17 +99,19 @@
   </div>
 
   <div class="disclaimer">
-    <strong>⚠ Research Use Only:</strong> These compounds are intended strictly for research purposes and are not for human consumption. They have not been evaluated by the FDA and are not intended to diagnose, treat, cure, or prevent any disease. By placing an order, you confirm that you are a qualified researcher and agree to use these compounds in full compliance with all applicable laws. Resale is strictly prohibited. Use at your own risk.
+    <strong>&#9888; Research Use Only:</strong> These compounds are intended strictly for research purposes and are not for human consumption. They have not been evaluated by the FDA and are not intended to diagnose, treat, cure, or prevent any disease. By placing an order, you confirm that you are a qualified researcher and agree to use these compounds in full compliance with all applicable laws. Resale is strictly prohibited. Use at your own risk.
   </div>
 
-  <input type="text" id="searchInput" placeholder="Search by name, SKU, or configuration…" oninput="filterProducts()" style="width:100%;padding:9px 12px;border:1px solid var(--border);border-radius:var(--radius);font-size:14px;font-family:'DM Sans',sans-serif;background:var(--surface);color:var(--text);outline:none;margin-bottom:1rem">
+  <div class="search-wrap">
+    <input type="text" id="searchInput" placeholder="Search by name, SKU, or configuration&hellip;" oninput="filterProducts()">
+  </div>
 
   <div class="cat-tabs" id="catTabs"></div>
   <div id="catalogContainer"></div>
 
   <div class="cart-bar">
     <div class="cart-summary" id="cartSummary">No items selected</div>
-    <button class="btn-checkout" id="checkoutBtn" disabled onclick="openCheckout()">Checkout →</button>
+    <button class="btn-checkout" id="checkoutBtn" disabled onclick="openCheckout()">Checkout &rarr;</button>
   </div>
 </div>
 
@@ -115,11 +120,105 @@
 </div>
 
 <script>
-// ─── IMPORTANT ──────────────────────────────────────────────
-// After you deploy Code.gs as a Web App, paste the deployment
-// URL here (looks like https://script.google.com/macros/s/AKfy.../exec)
 const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzreV6b4UruslM5jEDeMY0Pt_OM76aLL9GDpWtz1d6HwV-F9Pjj6zO5eCQgCrn7buARGA/exec';
-// ────────────────────────────────────────────────────────────
+
+// ── Research info blurbs — tap the (i) on any card to expand ──
+const INFO = {
+  'SM5':   'Semaglutide is a GLP-1 receptor agonist studied for appetite regulation and metabolic support. Research suggests it reduces caloric intake by mimicking satiety hormones.',
+  'SM10':  'Semaglutide 10mg — GLP-1 receptor agonist studied for appetite regulation and metabolic support.',
+  'SM15':  'Semaglutide 15mg — GLP-1 receptor agonist studied for appetite regulation and metabolic support.',
+  'SM20':  'Semaglutide 20mg — GLP-1 receptor agonist studied for appetite and glucose metabolism.',
+  'SM30':  'Semaglutide 30mg — maximum-concentration vial for advanced metabolic research protocols.',
+  'TR5':   'Tirzepatide is a dual GIP/GLP-1 receptor agonist studied for insulin sensitivity, appetite suppression, and body composition.',
+  'TR10':  'Tirzepatide 10mg — dual GIP/GLP-1 agonist studied for metabolic regulation and body composition.',
+  'TR15':  'Tirzepatide 15mg — dual incretin receptor agonist studied for synergistic effects on blood glucose and appetite.',
+  'TR20':  'Tirzepatide 20mg — dual GIP/GLP-1 agonist for intermediate-dose metabolic research.',
+  'TR30':  'Tirzepatide 30mg — higher-dose dual agonist vial for advanced metabolic research.',
+  'TR40':  'Tirzepatide 40mg — high-concentration dual GIP/GLP-1 agonist for research.',
+  'TR45':  'Tirzepatide 45mg — near-maximum concentration dual agonist for advanced metabolic research.',
+  'TR50':  'Tirzepatide 50mg — high-dose dual agonist for insulin sensitivity and metabolic function research.',
+  'TR60':  'Tirzepatide 60mg — advanced research concentration for GIP/GLP-1 pathway studies.',
+  'TR80':  'Tirzepatide 80mg — very high-dose vial for specialized metabolic research protocols.',
+  'TR100': 'Tirzepatide 100mg — maximum-concentration vial for high-dose research studies.',
+  'RT5':   'Retatrutide is a triple GIP/GLP-1/glucagon receptor agonist researched for effects on weight, metabolism, and lipid profiles.',
+  'RT10':  'Retatrutide 10mg — triple agonist targeting GIP, GLP-1, and glucagon receptors for metabolic research.',
+  'RT15':  'Retatrutide 15mg — triple incretin agonist for intermediate-dose metabolic research.',
+  'RT20':  'Retatrutide 20mg — triple receptor agonist for advanced metabolic research protocols.',
+  'RT30':  'Retatrutide 30mg — high-dose triple agonist for GLP-1/GIP/glucagon pathway research.',
+  'RT40':  'Retatrutide 40mg — high-concentration triple agonist vial for advanced studies.',
+  'RT50':  'Retatrutide 50mg — advanced research vial for triple receptor pathway investigation.',
+  'RT60':  'Retatrutide 60mg — maximum-dose triple agonist vial for specialized research.',
+  'CGL5':  'Cagrilintide is an amylin analogue studied for slowing gastric emptying and reducing appetite, often researched alongside GLP-1 agonists.',
+  'CGL10': 'Cagrilintide 10mg — higher-dose amylin analogue for research into appetite and gastric function.',
+  'SUR10': 'Survodutide is a dual glucagon/GLP-1 receptor agonist studied for lipid metabolism and energy expenditure.',
+  'MDT10': 'Mazdutide is a GLP-1/glucagon dual receptor agonist researched for weight management and metabolic regulation.',
+  'RC10':  'Combination of Retatrutide 5mg + Cagrilintide 5mg. Researched for synergistic triple-receptor and amylin effects on metabolism and appetite.',
+  'CS5':   'Combination of Cagrilintide + Semaglutide 5mg. Studies combined amylin analogue and GLP-1 agonist pathway effects.',
+  'CS10':  'Cagrilintide + Semaglutide 10mg — higher-dose dual-mechanism metabolic research blend.',
+  'TSM10': 'Tesamorelin is a GHRH analogue that stimulates growth hormone release. Researched for body composition, visceral fat reduction, and IGF-1 levels.',
+  'Ti18':  'Custom blend of Ipamorelin 6mg + Tesamorelin 12mg — studied for synergistic GH secretagogue effects via GHRH and GHRP pathways.',
+  'SMO5':  'Sermorelin is a GHRH analogue that stimulates the pituitary to release GH. Studied for anti-aging, sleep quality, and body composition.',
+  'CD5':   'CJC-1295 with DAC extends the half-life of GHRH activity. Studied for sustained GH and IGF-1 elevation in research models.',
+  'CND5':  'CJC-1295 without DAC — shorter-acting GHRH analogue typically combined with a GHRP for pulsatile GH release.',
+  'CP10':  'CJC-1295 No DAC 5mg + Ipamorelin 5mg. Researched for synergistic pulsatile GH release via GHRH and ghrelin pathways.',
+  'CP20':  'CJC-1295 No DAC 10mg + Ipamorelin 10mg — higher-dose GH secretagogue blend for research.',
+  'IP5':   'Ipamorelin is a selective GHRP studied for clean GH pulses with minimal cortisol or prolactin side effects in research.',
+  'G65':   'GHRP-6 is a growth hormone releasing hexapeptide studied for GH stimulation and appetite regulation via ghrelin receptor activation.',
+  'FMP2':  'PEG-MGF is a splice variant of IGF-1 studied for muscle repair, satellite cell activation, and localized tissue growth.',
+  'IG1':   'IGF-1 LR3 is a long-acting analogue of Insulin-Like Growth Factor 1. Researched for anabolic effects on muscle tissue, cell proliferation, and nutrient uptake.',
+  'BC5':   'BPC-157 (Body Protection Compound) is a pentadecapeptide studied for regenerative properties including tendon, ligament, gut, and nerve repair.',
+  'BC10':  'BPC-157 10mg — higher-concentration healing peptide studied for tissue repair, angiogenesis, and gut mucosal protection.',
+  'TB5':   'TB-500 (Thymosin Beta-4) is studied for actin regulation, angiogenesis, and systemic tissue repair including muscle, tendon, and cardiac tissue.',
+  'BB10':  'BPC-157 5mg + TB-500 5mg. Synergistic tissue repair blend — BPC-157 targets localized healing while TB-500 promotes systemic recovery.',
+  'BBG70': 'GLOW Blend — BPC-157 10mg + GHK-Cu 50mg + TB-500 10mg. Researched for combined regenerative, anti-inflammatory, and collagen-stimulating effects.',
+  'BBGK':  'KLOW Blend — BPC-157 10mg + GHK-Cu 50mg + TB-500 10mg + KPV 10mg. Adds anti-inflammatory KPV to the GLOW formula for comprehensive recovery research.',
+  'CU100': 'GHK-Cu (Copper Peptide) is studied for skin regeneration, collagen synthesis, wound healing, and anti-inflammatory effects. Also researched for hair growth.',
+  'ET50':  'Epithalon is a tetrapeptide studied for telomere elongation, antioxidant activity, and regulation of the pineal gland and melatonin production.',
+  'MS40':  'MOTS-c is a mitochondria-derived peptide studied for metabolic regulation, insulin sensitivity, and cellular energy homeostasis.',
+  '2S10':  'SS-31 (Elamipretide) is a mitochondria-targeted peptide studied for cardioprotective, neuroprotective, and anti-aging effects at the cellular level.',
+  'TA5':   'Thymosin Alpha-1 is a thymic peptide studied for immune modulation, T-cell activation, and antiviral and antifungal defense mechanisms.',
+  'TA10':  'Thymosin Alpha-1 10mg — higher-dose immune modulating peptide for advanced research protocols.',
+  'NJ500': 'NAD+ is a coenzyme studied for energy metabolism, DNA repair, sirtuin activation, and cellular anti-aging pathways.',
+  'NJ1000':'NAD+ 1000mg — high-dose coenzyme vial for intensive metabolic and longevity research.',
+  'GTT':   'Glutathione is the body\'s master antioxidant, studied for detoxification, immune support, skin brightening, and mitochondrial health.',
+  'CBL60': 'Cerebrolysin is a neuropeptide mixture studied for neuroprotection, neurogenesis, and cognitive enhancement in neurodegenerative research models.',
+  'TY10':  'Thymalin is a thymic peptide studied for immune system regulation, neuroendocrine function, and anti-aging properties.',
+  'PI5':   'Pinealon is a tripeptide studied for neuroprotection, circadian rhythm regulation, and cognitive function via pineal and CNS mechanisms.',
+  'PI10':  'Pinealon 10mg — higher-dose neuropeptide for research into sleep, cognitive function, and pineal gland activity.',
+  'PI20':  'Pinealon 20mg — high-dose vial for advanced neuroprotection and circadian rhythm research.',
+  '5AM5':  '5-Amino-1MQ is a small molecule studied for NNMT enzyme inhibition, potentially promoting fat metabolism and mitochondrial function.',
+  'XA5':   'Semax is a synthetic ACTH analogue studied for cognitive enhancement, neuroprotection, BDNF upregulation, and anxiety reduction.',
+  'SK5':   'Selank is a synthetic analogue of tuftsin studied for anxiolytic effects, immune modulation, and cognitive enhancement without sedation.',
+  'KA10':  'Selank 5mg + Semax 5mg. Researched for synergistic nootropic and anxiolytic effects targeting both BDNF and tuftsin pathways.',
+  'KA20':  'Selank 10mg + Semax 10mg — higher-dose dual nootropic blend for advanced cognitive research.',
+  'VIP5':  'VIP (Vasoactive Intestinal Peptide) is studied for neuroprotection, immune modulation, anti-inflammatory effects, and pulmonary vasodilation.',
+  'VIP10': 'VIP 10mg — higher-dose vasoactive intestinal peptide for advanced immune and neuroprotective research.',
+  'DS5':   'DSIP (Delta Sleep Inducing Peptide) is studied for sleep regulation, stress hormone modulation, and potential anti-epileptic properties.',
+  'KPV5':  'KPV is a tripeptide derived from alpha-MSH studied for anti-inflammatory effects, particularly in gut inflammation, skin conditions, and wound healing.',
+  'LL37':  'LL-37 is a human cathelicidin antimicrobial peptide studied for immune defense, wound healing, angiogenesis, and anti-biofilm properties.',
+  'NP810': 'Snap-8 is an octapeptide studied as a topical anti-wrinkle agent that may reduce muscle contraction at the neuromuscular junction.',
+  'PC10':  'PNC-27 is a peptide studied for selective targeting and disruption of cancer cell membranes while leaving healthy cells intact.',
+  'MT1':   'Melanotan 1 is a synthetic alpha-MSH analogue studied for skin pigmentation, UV protection, and photoprotective mechanisms.',
+  'ML10':  'Melanotan 2 (MT-2) is studied for skin tanning, libido effects via melanocortin receptors, and appetite suppression in research models.',
+  'P41':   'PT-141 (Bremelanotide) is a melanocortin receptor agonist studied for sexual arousal and libido effects in both male and female research models.',
+  'G5K':   'HCG 5,000 IU — studied for LH-mimicking effects on testosterone production and fertility in research.',
+  'G75':   'HMG contains FSH and LH activity, studied for follicular development and hormonal regulation in research.',
+  'KS5':   'Kisspeptin-10 is a neuropeptide studied for triggering GnRH release, puberty onset, and reproductive hormone regulation.',
+  'KS10':  'Kisspeptin-10 10mg — higher-dose GnRH-stimulating peptide for advanced reproductive hormone research.',
+  'LC500': 'L-Carnitine 500mg/10mL — studied for fatty acid transport into mitochondria, energy metabolism, and exercise recovery.',
+  'B12':   'Vitamin B12 injectable — studied for neurological function, red blood cell formation, DNA synthesis, and energy metabolism.',
+  'LC120': 'MIC + Carnitine Blend (Methionine/Choline/Carnitine/Dexpanthenol) — researched for lipotropic fat metabolism and liver support.',
+  'LC216': 'Amino + Vitamin Blend (L-Carnitine/L-Arginine/Methionine/Inositol/Choline/B6/B5/B12) — comprehensive amino-vitamin support blend.',
+  'HHB':   'Healthy Hair Skin Nails Blend — Niacin, Thiamine, Pantothenic Acid, Biotin, Folic Acid and more. Studied for connective tissue, keratin, and collagen support.',
+  'SHB':   'Super Human Blend — Amino Acids + L-Carnitine + NAC. Researched for metabolic support, antioxidant activity, and muscle recovery.',
+  'RP226': 'Relaxation PM (GABA/Melatonin/Arginine/Glutamine) — studied for sleep induction, stress reduction, and overnight recovery.',
+  'LC553': 'Super Shred (L-Carnitine/MIC/ATP/Albuterol/B12) — researched for fat mobilization, energy metabolism, and thermogenic effects.',
+  'LC526': 'Lipo-C Fat Blaster (L-Carnitine/Methionine/Inositol/Choline/B12/B6/NADH) — comprehensive lipotropic blend for fat metabolism support.',
+  'LB':    'Lemon Bottle is a lipolytic injection blend studied for localized fat breakdown and body contouring research applications.',
+  'WA3':   'Sterile Water 3mL — pharmaceutical-grade reconstitution water for peptide and compound preparation.',
+  'WA10':  'Sterile Water 10mL — pharmaceutical-grade reconstitution water for larger-volume peptide preparation.',
+  'BA10':  'Bacteriostatic Water 10mL (0.9% Benzyl Alcohol) — standard multi-use reconstitution water for peptide vials.',
+};
 
 const PRODUCTS=[
   {sku:'SM5',name:'Semaglutide',config:'5mg/vial',price:100,cat:'GLP-1 / Weight Loss'},
@@ -240,19 +339,27 @@ function renderCatalog(){
 
 function renderCard(p){
   const qty=cart[p.sku]||0;
+  const info=INFO[p.sku]||'';
   return `<div class="product-card${qty>0?' in-cart':''}" id="card-${p.sku}">
-    <div class="pc-sku">${p.sku}</div>
+    <div class="pc-sku">${p.sku}${info?` <button class="info-btn" onclick="toggleInfo('${p.sku}',event)">i</button>`:''}</div>
     <div class="pc-name">${p.name}</div>
     <div class="pc-config">${p.config}</div>
+    ${info?`<div class="pc-info hidden" id="info-${p.sku}">${info}</div>`:''}
     <div class="pc-footer">
       <div class="pc-price">${fmt(p.price)}</div>
       <div class="pc-qty">
-        <button class="qty-btn" onclick="changeQty('${p.sku}',-1)">−</button>
+        <button class="qty-btn" onclick="changeQty('${p.sku}',-1)">&#8722;</button>
         <span class="qty-num" id="qty-${p.sku}">${qty}</span>
         <button class="qty-btn" onclick="changeQty('${p.sku}',1)">+</button>
       </div>
     </div>
   </div>`;
+}
+
+function toggleInfo(sku,e){
+  e.stopPropagation();
+  const el=document.getElementById('info-'+sku);
+  if(el)el.classList.toggle('hidden');
 }
 
 function changeQty(sku,delta){
@@ -270,7 +377,7 @@ const cartCount=()=>Object.values(cart).reduce((s,v)=>s+v,0);
 
 function updateCartBar(){
   const n=cartCount(),t=cartTotal();
-  document.getElementById('cartSummary').innerHTML=n?`<strong>${n} item${n!==1?'s':''}</strong> &nbsp;·&nbsp; ${fmt(t)}`:'No items selected';
+  document.getElementById('cartSummary').innerHTML=n?`<strong>${n} item${n!==1?'s':''}</strong> &nbsp;&middot;&nbsp; ${fmt(t)}`:'No items selected';
   document.getElementById('checkoutBtn').disabled=!n;
 }
 
@@ -281,7 +388,7 @@ function renderStep1(){
   document.getElementById('modalContent').innerHTML=`
     <h2>Your order</h2>
     <div class="order-items">
-      ${Object.entries(cart).map(([sku,qty])=>{const p=PRODUCTS.find(x=>x.sku===sku);return`<div class="order-item"><div><div class="order-item-name">${p.name}</div><div class="order-item-meta">${p.config} &nbsp;·&nbsp; ${p.sku} &nbsp;·&nbsp; Qty ${qty}</div></div><div class="order-item-price">${fmt(p.price*qty)}</div></div>`;}).join('')}
+      ${Object.entries(cart).map(([sku,qty])=>{const p=PRODUCTS.find(x=>x.sku===sku);return`<div class="order-item"><div><div class="order-item-name">${p.name}</div><div class="order-item-meta">${p.config} &nbsp;&middot;&nbsp; ${p.sku} &nbsp;&middot;&nbsp; Qty ${qty}</div></div><div class="order-item-price">${fmt(p.price*qty)}</div></div>`;}).join('')}
     </div>
     <div class="total-row"><span>Order total</span><span>${fmt(cartTotal())}</span></div>
     <h3>Contact information</h3>
@@ -304,10 +411,10 @@ function renderStep1(){
       <div class="form-group"><label>ZIP *</label><input id="f_zip" placeholder="94102"></div>
       <div class="form-group"><label>Country</label><input id="f_country" value="United States"></div>
     </div>
-    <div class="form-row full" style="margin-top:4px"><div class="form-group"><label>Order notes</label><input id="f_notes" placeholder="Special instructions…"></div></div>
+    <div class="form-row full" style="margin-top:4px"><div class="form-group"><label>Order notes</label><input id="f_notes" placeholder="Special instructions&hellip;"></div></div>
     <div class="btn-row">
       <button class="btn-secondary" onclick="closeModal()">Cancel</button>
-      <button class="btn-primary" onclick="submitContact()">Continue to payment →</button>
+      <button class="btn-primary" onclick="submitContact()">Continue to payment &rarr;</button>
     </div>`;
 }
 
@@ -323,7 +430,6 @@ function submitContact(){
 function renderPayment(c){
   const total=cartTotal();
   const ref='ORD-'+Math.random().toString(36).slice(2,8).toUpperCase();
-  // Store for submission
   window._pendingOrder={...c,ref,total,
     items:Object.entries(cart).map(([sku,qty])=>{
       const p=PRODUCTS.find(x=>x.sku===sku);
@@ -336,16 +442,16 @@ function renderPayment(c){
       <div class="v-label">Venmo handle</div>
       <div class="v-handle">@michael-taba</div>
       <div class="v-amount">Amount: <strong>${fmt(total)}</strong></div>
-      <div class="v-note">Include in your Venmo note:<br><strong>${ref} — ${c.first} ${c.last}</strong></div>
+      <div class="v-note">Include in your Venmo note:<br><strong>${ref} &mdash; ${c.first} ${c.last}</strong></div>
     </div>
     <h3>Payment steps</h3>
     <ol class="instructions">
       <li>Open Venmo and tap <strong>Pay or Request</strong></li>
       <li>Search for <strong>@michael-taba</strong> and select the account</li>
       <li>Enter the exact amount: <strong>${fmt(total)}</strong></li>
-      <li>In the note field type: <strong>${ref} — ${c.first} ${c.last}</strong></li>
-      <li>Tap <strong>Pay</strong> (do not mark as "Goods &amp; Services")</li>
-      <li>Click the button below to confirm your order — your details will be sent and logged automatically</li>
+      <li>In the note field type: <strong>${ref} &mdash; ${c.first} ${c.last}</strong></li>
+      <li>Tap <strong>Pay</strong> (do not mark as &ldquo;Goods &amp; Services&rdquo;)</li>
+      <li>Click the button below to confirm &mdash; your details will be sent and logged automatically</li>
     </ol>
     <h3>Shipping to</h3>
     <div class="addr-display">
@@ -357,31 +463,27 @@ function renderPayment(c){
       ${c.notes?`<br><span style="color:var(--text-muted)">Note: ${c.notes}</span>`:''}
     </div>
     <div class="order-items">
-      ${Object.entries(cart).map(([sku,qty])=>{const p=PRODUCTS.find(x=>x.sku===sku);return`<div class="order-item"><div><div class="order-item-name">${p.name}</div><div class="order-item-meta">${p.config} · Qty ${qty}</div></div><div class="order-item-price">${fmt(p.price*qty)}</div></div>`;}).join('')}
+      ${Object.entries(cart).map(([sku,qty])=>{const p=PRODUCTS.find(x=>x.sku===sku);return`<div class="order-item"><div><div class="order-item-name">${p.name}</div><div class="order-item-meta">${p.config} &middot; Qty ${qty}</div></div><div class="order-item-price">${fmt(p.price*qty)}</div></div>`;}).join('')}
       <div class="order-item" style="font-weight:600"><span>Total</span><span class="order-item-price">${fmt(total)}</span></div>
     </div>
     <p style="font-size:11px;color:var(--text-light);line-height:1.5;padding:9px 11px;border:1px solid var(--border);border-radius:var(--radius);margin-bottom:1rem">
       By completing this order you confirm these compounds are for research purposes only, not for human consumption, and not for resale.
     </p>
     <div class="btn-row">
-      <button class="btn-secondary" onclick="renderStep1()">← Back</button>
-      <button class="btn-primary" id="submitBtn" onclick="submitOrder()">I've sent the payment — submit order ✓</button>
+      <button class="btn-secondary" onclick="renderStep1()">&larr; Back</button>
+      <button class="btn-primary" id="submitBtn" onclick="submitOrder()">I&apos;ve sent the payment &mdash; submit order &#10003;</button>
     </div>
-    <p class="submitting-msg" id="submittingMsg" style="display:none">Submitting your order…</p>`;
+    <p class="submitting-msg" id="submittingMsg" style="display:none">Submitting your order&hellip;</p>`;
 }
 
 function submitOrder(){
   const btn=document.getElementById('submitBtn');
   const msg=document.getElementById('submittingMsg');
   btn.disabled=true;
-  btn.textContent='Submitting…';
+  btn.textContent='Submitting\u2026';
   msg.style.display='block';
-
   const order=window._pendingOrder;
-
   try{
-    // Use a hidden iframe + form to POST — this bypasses CORS restrictions
-    // that block fetch() from GitHub Pages to Apps Script
     let iframe=document.getElementById('_submitFrame');
     if(!iframe){
       iframe=document.createElement('iframe');
@@ -390,30 +492,23 @@ function submitOrder(){
       iframe.style.display='none';
       document.body.appendChild(iframe);
     }
-
     let form=document.createElement('form');
     form.method='POST';
     form.action=APPS_SCRIPT_URL;
     form.target='_submitFrame';
     form.style.display='none';
-
-    // Apps Script reads e.postData.contents, so we send the JSON as a field
     const input=document.createElement('input');
     input.type='hidden';
     input.name='payload';
     input.value=JSON.stringify(order);
     form.appendChild(input);
-
     document.body.appendChild(form);
     form.submit();
     document.body.removeChild(form);
-
-    // Wait 2 seconds then show success (we can't read iframe response cross-origin)
-    setTimeout(()=>showSuccess(order.ref, order.email), 2000);
-
-  } catch(err){
+    setTimeout(()=>showSuccess(order.ref,order.email),2000);
+  }catch(err){
     btn.disabled=false;
-    btn.textContent='I\'ve sent the payment — submit order ✓';
+    btn.textContent='I\u2019ve sent the payment \u2014 submit order \u2713';
     msg.style.display='none';
     alert('There was a problem submitting your order. Please try again or contact us directly.');
   }
@@ -422,11 +517,11 @@ function submitOrder(){
 function showSuccess(ref,email){
   document.getElementById('modalContent').innerHTML=`
     <div class="success-box">
-      <div class="success-icon">✓</div>
+      <div class="success-icon">&#10003;</div>
       <h2>Order submitted!</h2>
       <p style="font-size:14px;color:var(--text-muted);margin:.5rem 0 1rem">Reference: <strong style="color:var(--text);font-family:'DM Mono',monospace">${ref}</strong></p>
       <p style="font-size:13px;color:var(--text-muted);line-height:1.7">
-        Your order has been logged and a notification has been sent. Once your Venmo payment is verified, your order will ship within 2–4 business days.<br><br>
+        Your order has been logged and a notification has been sent. Once your Venmo payment is verified, your order will ship within 2&ndash;4 business days.<br><br>
         A confirmation will be sent to <strong>${email}</strong>.
       </p>
       <div style="margin-top:1.5rem">
