@@ -722,18 +722,20 @@ function renderPayment(c){
 function submitOrder(){
   const btn=document.getElementById('submitBtn');
   const msg=document.getElementById('submittingMsg');
-  btn.disabled=true;
-  btn.textContent='Submitting…';
-  msg.style.display='block';
+  btn.disabled=true;btn.textContent='Submitting…';msg.style.display='block';
   const order=window._pendingOrder;
   const payload=encodeURIComponent(JSON.stringify(order));
   const url=APPS_SCRIPT_URL+'?payload='+payload;
+  let done=false;
+  function onDone(){
+    if(done)return;
+    done=true;
+    showSuccess(order.ref,order.email);
+  }
   const img=new Image();
-  img.onload=img.onerror=function(){showSuccess(order.ref,order.email);};
+  img.onload=img.onerror=onDone;
   img.src=url;
-  // Also try fetch as backup
-  fetch(url,{method:'GET',mode:'no-cors'}).catch(function(){});
-  setTimeout(function(){showSuccess(order.ref,order.email);},3000);
+  setTimeout(onDone,4000);
 }
 
 function showSuccess(ref,email){
