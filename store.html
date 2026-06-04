@@ -120,7 +120,7 @@
 </div>
 
 <script>
-const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxaHIlyG05Cg7FK_k2PuQt9qpbhrU1fJu35Gz7-2pSSzlbj8lGiMME_I908LgtVHnV_oA/exec';
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyYZ9OMNIQP7RVfnMvskGcbuwMVg3RuaMKtYxpH8gbxBNx81AG3vtAGmXOAJSQvk09UTw/exec';
 
 // Each compound: name, info blurb, category, variants [{sku, config, price}]
 const COMPOUNDS = [
@@ -718,20 +718,18 @@ function renderPayment(c){
 function submitOrder(){
   const btn=document.getElementById('submitBtn');
   const msg=document.getElementById('submittingMsg');
-  btn.disabled=true; btn.textContent='Submitting\u2026'; msg.style.display='block';
+  btn.disabled=true;
+  btn.textContent='Submitting…';
+  msg.style.display='block';
   const order=window._pendingOrder;
-  try{
-    let iframe=document.getElementById('_submitFrame');
-    if(!iframe){iframe=document.createElement('iframe');iframe.name='_submitFrame';iframe.id='_submitFrame';iframe.style.display='none';document.body.appendChild(iframe);}
-    let form=document.createElement('form');
-    form.method='POST';form.action=APPS_SCRIPT_URL;form.target='_submitFrame';form.style.display='none';
-    const input=document.createElement('input');input.type='hidden';input.name='payload';input.value=JSON.stringify(order);
-    form.appendChild(input);document.body.appendChild(form);form.submit();document.body.removeChild(form);
-    setTimeout(()=>showSuccess(order.ref,order.email),2000);
-  }catch(err){
-    btn.disabled=false;btn.textContent='I\u2019ve sent the payment \u2014 submit order \u2713';msg.style.display='none';
-    alert('There was a problem submitting your order. Please try again or contact us directly.');
-  }
+  const payload=encodeURIComponent(JSON.stringify(order));
+  const url=APPS_SCRIPT_URL+'?payload='+payload;
+  const img=new Image();
+  img.onload=img.onerror=function(){showSuccess(order.ref,order.email);};
+  img.src=url;
+  // Also try fetch as backup
+  fetch(url,{method:'GET',mode:'no-cors'}).catch(function(){});
+  setTimeout(function(){showSuccess(order.ref,order.email);},3000);
 }
 
 function showSuccess(ref,email){
