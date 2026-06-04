@@ -344,7 +344,7 @@ function renderCard(p){
     <div class="pc-sku">${p.sku}${info?` <button class="info-btn" onclick="toggleInfo('${p.sku}',event)">i</button>`:''}</div>
     <div class="pc-name">${p.name}</div>
     <div class="pc-config">${p.config}</div>
-    ${info?`<div class="pc-info hidden" id="info-${p.sku}">${info}</div>`:''}
+    ${info?`<div class="pc-info" id="info-${p.sku}">${info}</div>`:''}
     <div class="pc-footer">
       <div class="pc-price">${fmt(p.price)}</div>
       <div class="pc-qty">
