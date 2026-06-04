@@ -16,7 +16,7 @@
     --venmo:#008CFF;--venmo-light:#e8f4ff;--radius:8px;--radius-lg:12px;
   }
   body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);font-size:15px;line-height:1.5;min-height:100vh}
-  .page-wrap{max-width:900px;margin:0 auto;padding:2rem 1.25rem 4rem}
+  .page-wrap{max-width:860px;margin:0 auto;padding:2rem 1.25rem 4rem}
   .site-header{margin-bottom:2rem;padding-bottom:1.25rem;border-bottom:1px solid var(--border)}
   .site-header h1{font-size:24px;font-weight:600;letter-spacing:-.02em}
   .site-header p{font-size:13px;color:var(--text-muted);margin-top:3px}
@@ -29,24 +29,22 @@
   .cat-tab:hover{border-color:var(--border-strong);color:var(--text)}
   .cat-tab.active{background:var(--accent);color:#fff;border-color:var(--accent);font-weight:500}
   .section-label{font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--text-light);margin:1.5rem 0 .625rem;font-family:'DM Mono',monospace}
-  .product-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;margin-bottom:.5rem}
-
-  /* Product card */
-  .product-card{border:1px solid var(--border);border-radius:var(--radius);padding:13px;background:var(--surface);transition:border-color .15s,background .15s;display:flex;flex-direction:column;gap:8px}
+  .product-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(175px,1fr));gap:8px;margin-bottom:.5rem}
+  .product-card{border:1px solid var(--border);border-radius:var(--radius);padding:11px 13px;background:var(--surface);transition:border-color .15s,background .15s}
   .product-card.in-cart{border-color:var(--accent-mid);background:var(--accent-light)}
-  .pc-name{font-size:14px;font-weight:600;color:var(--text);line-height:1.3}
-  .pc-info{font-size:11px;color:var(--text-muted);line-height:1.5;padding:7px 9px;background:var(--bg);border-radius:5px;border-left:2px solid var(--accent-mid)}
-  .pc-size-row{display:flex;align-items:center;gap:8px}
-  .pc-size-label{font-size:11px;color:var(--text-muted);white-space:nowrap}
-  .pc-select{flex:1;padding:6px 8px;border:1px solid var(--border);border-radius:6px;font-size:13px;font-family:'DM Mono',monospace;background:var(--surface);color:var(--text);cursor:pointer;outline:none}
-  .pc-select:focus{border-color:var(--accent-mid)}
-  .pc-footer{display:flex;align-items:center;justify-content:space-between;margin-top:2px}
-  .pc-price{font-size:15px;font-weight:700;color:var(--text);font-family:'DM Mono',monospace}
+  .pc-sku{font-size:10px;color:var(--text-light);font-family:'DM Mono',monospace;margin-bottom:2px;display:flex;align-items:center;gap:5px}
+  .pc-name{font-size:13px;font-weight:500;color:var(--text);line-height:1.3;margin-bottom:2px}
+  .pc-config{font-size:11px;color:var(--text-muted);margin-bottom:8px}
+  .pc-info{font-size:11px;color:var(--text-muted);line-height:1.5;margin:4px 0 8px;padding:7px 9px;background:var(--bg);border-radius:5px;border-left:2px solid var(--accent-mid)}
+  .pc-info.hidden{display:none}
+  .pc-footer{display:flex;align-items:center;justify-content:space-between}
+  .pc-price{font-size:14px;font-weight:600;color:var(--text);font-family:'DM Mono',monospace}
   .pc-qty{display:flex;align-items:center;gap:7px}
-  .qty-btn{width:26px;height:26px;border:1px solid var(--border-strong);border-radius:5px;background:var(--surface);color:var(--text);font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1;transition:background .1s;font-family:'DM Sans',sans-serif}
+  .qty-btn{width:24px;height:24px;border:1px solid var(--border-strong);border-radius:5px;background:var(--surface);color:var(--text);font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1;transition:background .1s;font-family:'DM Sans',sans-serif}
   .qty-btn:hover{background:var(--bg)}
-  .qty-num{font-size:13px;font-weight:600;min-width:18px;text-align:center;color:var(--text);font-family:'DM Mono',monospace}
-
+  .qty-num{font-size:13px;font-weight:600;min-width:16px;text-align:center;color:var(--text);font-family:'DM Mono',monospace}
+  .info-btn{display:inline-flex;align-items:center;justify-content:center;width:15px;height:15px;border-radius:50%;background:var(--accent-light);border:1px solid var(--accent-mid);color:var(--accent);font-size:9px;font-weight:700;cursor:pointer;font-family:'DM Mono',monospace;line-height:1;flex-shrink:0;padding:0}
+  .info-btn:hover{background:var(--accent);color:#fff}
   .cart-bar{position:sticky;bottom:0;background:var(--surface);border-top:1px solid var(--border);padding:13px 0;display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:2rem}
   .cart-summary{font-size:14px;color:var(--text-muted)}
   .cart-summary strong{color:var(--text);font-weight:600}
@@ -71,7 +69,8 @@
   .order-item-name{font-weight:500;color:var(--text)}
   .order-item-meta{color:var(--text-muted);font-size:11px;font-family:'DM Mono',monospace}
   .order-item-price{color:var(--text);font-weight:600;font-family:'DM Mono',monospace;white-space:nowrap;margin-left:12px}
-  .total-row{display:flex;justify-content:space-between;padding:10px 13px;font-size:15px;font-weight:600;color:var(--text);background:var(--bg);border-radius:var(--radius);margin-bottom:1rem;font-family:'DM Mono',monospace}
+  .total-row{display:flex;justify-content:space-between;padding:8px 13px;font-size:13px;color:var(--text-muted);font-family:'DM Mono',monospace}
+  .total-row.grand{font-size:15px;font-weight:600;color:var(--text);background:var(--bg);border-radius:var(--radius);margin-bottom:1rem}
   .venmo-box{background:var(--venmo-light);border:1px solid var(--venmo);border-radius:var(--radius);padding:15px;margin-bottom:1rem}
   .venmo-box .v-label{font-size:11px;color:var(--venmo);font-weight:600;margin-bottom:3px;text-transform:uppercase;letter-spacing:.05em}
   .venmo-box .v-handle{font-size:22px;font-weight:700;color:#005cbf;font-family:'DM Mono',monospace}
@@ -90,13 +89,13 @@
   .success-icon{width:56px;height:56px;background:#dcfce7;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;font-size:26px;color:#16a34a;font-weight:700}
   .no-results{padding:2rem 0;text-align:center;color:var(--text-muted);font-size:14px}
   .submitting-msg{font-size:13px;color:var(--text-muted);margin-top:.75rem;text-align:center}
-  @media(max-width:560px){.form-row{grid-template-columns:1fr}.product-grid{grid-template-columns:1fr}}
+  @media(max-width:560px){.form-row{grid-template-columns:1fr}.product-grid{grid-template-columns:repeat(auto-fill,minmax(145px,1fr))}}
 </style>
 </head>
 <body>
 <div class="page-wrap">
   <div class="site-header">
-    <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:.75rem">
+    <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:.6rem">
       <h1 style="margin-bottom:0">Compound Peptide Order Form</h1>
       <a href="store.html" style="display:inline-flex;align-items:center;gap:6px;padding:7px 16px;background:var(--accent);color:#fff;border-radius:20px;font-size:12px;font-weight:600;text-decoration:none;white-space:nowrap">New Store View &#8594;</a>
     </div>
@@ -106,7 +105,7 @@
     <strong>&#9888; Research Use Only:</strong> These compounds are intended strictly for research purposes and are not for human consumption. They have not been evaluated by the FDA and are not intended to diagnose, treat, cure, or prevent any disease. By placing an order, you confirm that you are a qualified researcher and agree to use these compounds in full compliance with all applicable laws. Resale is strictly prohibited. Use at your own risk.
   </div>
   <div class="search-wrap">
-    <input type="text" id="searchInput" placeholder="Search compounds&hellip;" oninput="filterProducts()">
+    <input type="text" id="searchInput" placeholder="Search by name, SKU, or configuration&hellip;" oninput="filterProducts()">
   </div>
   <div class="cat-tabs" id="catTabs"></div>
   <div id="catalogContainer"></div>
@@ -118,518 +117,275 @@
 <div class="modal-bg" id="checkoutModal">
   <div class="modal" id="modalContent"></div>
 </div>
-
 <script>
 const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyYZ9OMNIQP7RVfnMvskGcbuwMVg3RuaMKtYxpH8gbxBNx81AG3vtAGmXOAJSQvk09UTw/exec';
 const SHIPPING = 30;
 
-// Each compound: name, info blurb, category, variants [{sku, config, price}]
-const COMPOUNDS = [
-  // GLP-1 / Weight Loss
-  {
-    id:'semaglutide', name:'Semaglutide', cat:'GLP-1 / Weight Loss',
-    info:'A GLP-1 receptor agonist studied for appetite regulation and metabolic support. Research suggests it reduces caloric intake by mimicking satiety hormones.',
-    variants:[
-      {sku:'SM5',  config:'5mg/vial',  price:100},
-      {sku:'SM10', config:'10mg/vial', price:140},
-      {sku:'SM15', config:'15mg/vial', price:180},
-      {sku:'SM20', config:'20mg/vial', price:220},
-      {sku:'SM30', config:'30mg/vial', price:280},
-    ]
-  },
-  {
-    id:'tirzepatide', name:'Tirzepatide', cat:'GLP-1 / Weight Loss',
-    info:'A dual GIP/GLP-1 receptor agonist studied for insulin sensitivity, appetite suppression, and body composition.',
-    variants:[
-      {sku:'TR5',   config:'5mg/vial',   price:60},
-      {sku:'TR10',  config:'10mg/vial',  price:80},
-      {sku:'TR15',  config:'15mg/vial',  price:140},
-      {sku:'TR20',  config:'20mg/vial',  price:180},
-      {sku:'TR30',  config:'30mg/vial',  price:200},
-      {sku:'TR40',  config:'40mg/vial',  price:230},
-      {sku:'TR45',  config:'45mg/vial',  price:275},
-      {sku:'TR50',  config:'50mg/vial',  price:285},
-      {sku:'TR60',  config:'60mg/vial',  price:300},
-      {sku:'TR80',  config:'80mg/vial',  price:325},
-      {sku:'TR100', config:'100mg/vial', price:400},
-    ]
-  },
-  {
-    id:'retatrutide', name:'Retatrutide', cat:'GLP-1 / Weight Loss',
-    info:'A triple GIP/GLP-1/glucagon receptor agonist researched for effects on weight, metabolism, and lipid profiles.',
-    variants:[
-      {sku:'RT5',  config:'5mg/vial',  price:100},
-      {sku:'RT10', config:'10mg/vial', price:195},
-      {sku:'RT15', config:'15mg/vial', price:200},
-      {sku:'RT20', config:'20mg/vial', price:250},
-      {sku:'RT30', config:'30mg/vial', price:275},
-      {sku:'RT40', config:'40mg/vial', price:300},
-      {sku:'RT50', config:'50mg/vial', price:350},
-      {sku:'RT60', config:'60mg/vial', price:400},
-    ]
-  },
-  {
-    id:'cagrilintide', name:'Cagrilintide', cat:'GLP-1 / Weight Loss',
-    info:'An amylin analogue studied for slowing gastric emptying and reducing appetite, often researched alongside GLP-1 agonists.',
-    variants:[
-      {sku:'CGL5',  config:'5mg/vial',  price:180},
-      {sku:'CGL10', config:'10mg/vial', price:360},
-    ]
-  },
-  {
-    id:'survodutide', name:'Survodutide', cat:'GLP-1 / Weight Loss',
-    info:'A dual glucagon/GLP-1 receptor agonist studied for lipid metabolism and energy expenditure.',
-    variants:[{sku:'SUR10', config:'10mg/vial', price:600}]
-  },
-  {
-    id:'mazdutide', name:'Mazdutide', cat:'GLP-1 / Weight Loss',
-    info:'A GLP-1/glucagon dual receptor agonist researched for weight management and metabolic regulation.',
-    variants:[{sku:'MDT10', config:'10mg/vial', price:340}]
-  },
-  // Combo / Blends
-  {
-    id:'ret-cag', name:'Retatrutide + Cagrilintide', cat:'Combo / Blends',
-    info:'Researched for synergistic triple-receptor and amylin pathway effects on metabolism and appetite.',
-    variants:[{sku:'RC10', config:'5mg+5mg/vial', price:260}]
-  },
-  {
-    id:'cag-sem', name:'Cagrilintide + Semaglutide', cat:'Combo / Blends',
-    info:'Studies combined amylin analogue and GLP-1 agonist pathway effects on appetite and metabolic function.',
-    variants:[
-      {sku:'CS5',  config:'5mg/vial',  price:125},
-      {sku:'CS10', config:'10mg/vial', price:175},
-    ]
-  },
-  // Growth Hormone
-  {
-    id:'tesamorelin', name:'Tesamorelin', cat:'Growth Hormone',
-    info:'A GHRH analogue that stimulates growth hormone release. Researched for body composition, visceral fat reduction, and IGF-1 levels.',
-    variants:[{sku:'TSM10', config:'10mg/vial', price:150}]
-  },
-  {
-    id:'ip-tsm', name:'Ipamorelin + Tesamorelin (custom)', cat:'Growth Hormone',
-    info:'Custom blend of IP 6mg + TSM 12mg. Studied for synergistic GH secretagogue effects via GHRH and GHRP pathways.',
-    variants:[{sku:'Ti18', config:'18mg/vial', price:560}]
-  },
-  {
-    id:'sermorelin', name:'Sermorelin Acetate', cat:'Growth Hormone',
-    info:'A GHRH analogue that stimulates the pituitary to release GH. Studied for anti-aging, sleep quality, and body composition.',
-    variants:[{sku:'SMO5', config:'5mg/vial', price:100}]
-  },
-  {
-    id:'cjc-dac', name:'CJC-1295 DAC', cat:'Growth Hormone',
-    info:'CJC-1295 with Drug Affinity Complex extends GHRH activity half-life. Studied for sustained GH and IGF-1 elevation.',
-    variants:[{sku:'CD5', config:'5mg/vial', price:280}]
-  },
-  {
-    id:'cjc-nodac', name:'CJC-1295 No DAC', cat:'Growth Hormone',
-    info:'Shorter-acting GHRH analogue typically combined with a GHRP for pulsatile GH release in research.',
-    variants:[{sku:'CND5', config:'5mg/vial', price:140}]
-  },
-  {
-    id:'cjc-ipa', name:'CJC-1295 No DAC + Ipamorelin', cat:'Growth Hormone',
-    info:'Researched for synergistic pulsatile GH release via GHRH and ghrelin pathways.',
-    variants:[
-      {sku:'CP10', config:'5mg+5mg/vial',   price:160},
-      {sku:'CP20', config:'10mg+10mg/vial',  price:240},
-    ]
-  },
-  {
-    id:'ipamorelin', name:'Ipamorelin', cat:'Growth Hormone',
-    info:'A selective GHRP studied for clean GH pulses with minimal cortisol or prolactin side effects.',
-    variants:[{sku:'IP5', config:'5mg/vial', price:60}]
-  },
-  {
-    id:'ghrp6', name:'GHRP-6 Acetate', cat:'Growth Hormone',
-    info:'A growth hormone releasing hexapeptide studied for GH stimulation and appetite regulation via ghrelin receptor activation.',
-    variants:[{sku:'G65', config:'5mg/vial', price:40}]
-  },
-  {
-    id:'pegmgf', name:'PEG MGF', cat:'Growth Hormone',
-    info:'A PEGylated splice variant of IGF-1 studied for muscle repair, satellite cell activation, and localized tissue growth.',
-    variants:[{sku:'FMP2', config:'2mg/vial', price:160}]
-  },
-  {
-    id:'igf1', name:'IGF-1 LR3', cat:'Growth Hormone',
-    info:'A long-acting analogue of Insulin-Like Growth Factor 1. Researched for anabolic effects on muscle tissue, cell proliferation, and nutrient uptake.',
-    variants:[{sku:'IG1', config:'1mg/vial', price:200}]
-  },
-  // Recovery / Healing
-  {
-    id:'bpc157', name:'BPC-157', cat:'Recovery / Healing',
-    info:'Body Protection Compound — a pentadecapeptide studied for regenerative properties including tendon, ligament, gut, and nerve repair.',
-    variants:[
-      {sku:'BC5',  config:'5mg/vial',  price:74},
-      {sku:'BC10', config:'10mg/vial', price:140},
-    ]
-  },
-  {
-    id:'tb500', name:'TB-500 / TB4', cat:'Recovery / Healing',
-    info:'Thymosin Beta-4 — studied for actin regulation, angiogenesis, and systemic tissue repair including muscle, tendon, and cardiac tissue.',
-    variants:[{sku:'TB5', config:'5mg/vial', price:130}]
-  },
-  {
-    id:'bpc-tb', name:'BPC-157 + TB-500', cat:'Recovery / Healing',
-    info:'Synergistic tissue repair blend — BPC-157 targets localized healing while TB-500 promotes systemic recovery.',
-    variants:[{sku:'BB10', config:'5mg+5mg/vial', price:160}]
-  },
-  {
-    id:'glow', name:'GLOW Blend', cat:'Recovery / Healing',
-    info:'BPC-157 10mg + GHK-Cu 50mg + TB-500 10mg. Researched for combined regenerative, anti-inflammatory, and collagen-stimulating effects.',
-    variants:[{sku:'BBG70', config:'70mg/vial', price:160}]
-  },
-  {
-    id:'klow', name:'KLOW Blend', cat:'Recovery / Healing',
-    info:'BPC-157 10mg + GHK-Cu 50mg + TB-500 10mg + KPV 10mg. Adds anti-inflammatory KPV to the GLOW formula for comprehensive recovery research.',
-    variants:[{sku:'BBGK', config:'80mg/vial', price:180}]
-  },
-  // Anti-Aging
-  {
-    id:'ghkcu', name:'GHK-Cu', cat:'Anti-Aging / Longevity',
-    info:'Copper Peptide — studied for skin regeneration, collagen synthesis, wound healing, and anti-inflammatory effects. Also researched for hair growth.',
-    variants:[{sku:'CU100', config:'100mg/vial', price:96}]
-  },
-  {
-    id:'epithalon', name:'Epithalon', cat:'Anti-Aging / Longevity',
-    info:'A tetrapeptide studied for telomere elongation, antioxidant activity, and regulation of the pineal gland and melatonin production.',
-    variants:[{sku:'ET50', config:'50mg/vial', price:150}]
-  },
-  {
-    id:'motsc', name:'MOTS-c', cat:'Anti-Aging / Longevity',
-    info:'A mitochondria-derived peptide studied for metabolic regulation, insulin sensitivity, and cellular energy homeostasis.',
-    variants:[{sku:'MS40', config:'40mg/vial', price:150}]
-  },
-  {
-    id:'ss31', name:'SS-31', cat:'Anti-Aging / Longevity',
-    info:'Elamipretide — a mitochondria-targeted peptide studied for cardioprotective, neuroprotective, and anti-aging effects at the cellular level.',
-    variants:[{sku:'2S10', config:'10mg/vial', price:150}]
-  },
-  {
-    id:'ta1', name:'Thymosin Alpha-1', cat:'Anti-Aging / Longevity',
-    info:'A thymic peptide studied for immune modulation, T-cell activation, and antiviral and antifungal defense mechanisms.',
-    variants:[
-      {sku:'TA5',  config:'5mg/vial',  price:130},
-      {sku:'TA10', config:'10mg/vial', price:145},
-    ]
-  },
-  {
-    id:'nad', name:'NAD+', cat:'Anti-Aging / Longevity',
-    info:'Nicotinamide Adenine Dinucleotide — a coenzyme studied for energy metabolism, DNA repair, sirtuin activation, and cellular anti-aging pathways.',
-    variants:[
-      {sku:'NJ500',  config:'500mg/vial',  price:120},
-      {sku:'NJ1000', config:'1000mg/vial', price:135},
-    ]
-  },
-  {
-    id:'gluta', name:'Glutathione', cat:'Anti-Aging / Longevity',
-    info:'The body\'s master antioxidant — studied for detoxification, immune support, skin brightening, and mitochondrial health.',
-    variants:[{sku:'GTT', config:'1500mg/vial', price:125}]
-  },
-  {
-    id:'cerebrolysin', name:'Cerebrolysin', cat:'Anti-Aging / Longevity',
-    info:'A neuropeptide mixture studied for neuroprotection, neurogenesis, and cognitive enhancement in neurodegenerative research models.',
-    variants:[{sku:'CBL60', config:'60mg/vial', price:170}]
-  },
-  {
-    id:'thymalin', name:'Thymalin', cat:'Anti-Aging / Longevity',
-    info:'A thymic peptide studied for immune system regulation, neuroendocrine function, and anti-aging properties.',
-    variants:[{sku:'TY10', config:'10mg/vial', price:100}]
-  },
-  {
-    id:'pinealon', name:'Pinealon', cat:'Anti-Aging / Longevity',
-    info:'A tripeptide studied for neuroprotection, circadian rhythm regulation, and cognitive function via pineal and CNS mechanisms.',
-    variants:[
-      {sku:'PI5',  config:'5mg/vial',  price:120},
-      {sku:'PI10', config:'10mg/vial', price:180},
-      {sku:'PI20', config:'20mg/vial', price:150},
-    ]
-  },
-  {
-    id:'5am1mq', name:'5-Amino-1MQ', cat:'Anti-Aging / Longevity',
-    info:'A small molecule studied for NNMT enzyme inhibition, potentially promoting fat metabolism and mitochondrial function.',
-    variants:[{sku:'5AM5', config:'5mg/vial', price:80}]
-  },
-  // Cognitive / Neuro
-  {
-    id:'semax', name:'Semax', cat:'Cognitive / Neuro',
-    info:'A synthetic ACTH analogue studied for cognitive enhancement, neuroprotection, BDNF upregulation, and anxiety reduction.',
-    variants:[{sku:'XA5', config:'5mg/vial', price:80}]
-  },
-  {
-    id:'selank', name:'Selank', cat:'Cognitive / Neuro',
-    info:'A synthetic analogue of tuftsin studied for anxiolytic effects, immune modulation, and cognitive enhancement without sedation.',
-    variants:[{sku:'SK5', config:'5mg/vial', price:80}]
-  },
-  {
-    id:'sel-sem', name:'Selank + Semax', cat:'Cognitive / Neuro',
-    info:'Researched for synergistic nootropic and anxiolytic effects targeting both BDNF and tuftsin pathways.',
-    variants:[
-      {sku:'KA10', config:'5mg+5mg/vial',   price:136},
-      {sku:'KA20', config:'10mg+10mg/vial',  price:125},
-    ]
-  },
-  {
-    id:'vip', name:'VIP', cat:'Cognitive / Neuro',
-    info:'Vasoactive Intestinal Peptide — studied for neuroprotection, immune modulation, anti-inflammatory effects, and pulmonary vasodilation.',
-    variants:[
-      {sku:'VIP5',  config:'5mg/vial',  price:150},
-      {sku:'VIP10', config:'10mg/vial', price:280},
-    ]
-  },
-  {
-    id:'dsip', name:'DSIP', cat:'Cognitive / Neuro',
-    info:'Delta Sleep Inducing Peptide — studied for sleep regulation, stress hormone modulation, and potential anti-epileptic properties.',
-    variants:[{sku:'DS5', config:'5mg/vial', price:100}]
-  },
-  // Immune / Inflammation
-  {
-    id:'kpv', name:'KPV', cat:'Immune / Inflammation',
-    info:'A tripeptide derived from alpha-MSH studied for anti-inflammatory effects, particularly in gut inflammation, skin conditions, and wound healing.',
-    variants:[{sku:'KPV5', config:'5mg/vial', price:70}]
-  },
-  {
-    id:'ll37', name:'LL-37', cat:'Immune / Inflammation',
-    info:'A human cathelicidin antimicrobial peptide studied for immune defense, wound healing, angiogenesis, and anti-biofilm properties.',
-    variants:[{sku:'LL37', config:'5mg/vial', price:187.50}]
-  },
-  {
-    id:'snap8', name:'Snap-8', cat:'Immune / Inflammation',
-    info:'An octapeptide studied as a topical anti-wrinkle agent that may reduce muscle contraction at the neuromuscular junction.',
-    variants:[{sku:'NP810', config:'10mg/vial', price:80}]
-  },
-  {
-    id:'pnc27', name:'PNC-27', cat:'Immune / Inflammation',
-    info:'A peptide studied for selective targeting and disruption of cancer cell membranes while leaving healthy cells intact.',
-    variants:[{sku:'PC10', config:'10mg/vial', price:280}]
-  },
-  // Sexual Health
-  {
-    id:'mt1', name:'Melanotan 1', cat:'Sexual Health',
-    info:'A synthetic alpha-MSH analogue studied for skin pigmentation, UV protection, and photoprotective mechanisms.',
-    variants:[{sku:'MT1', config:'10mg/vial', price:100}]
-  },
-  {
-    id:'mt2', name:'Melanotan 2 (MT-2)', cat:'Sexual Health',
-    info:'Studied for skin tanning, libido effects via melanocortin receptors, and appetite suppression in research models.',
-    variants:[{sku:'ML10', config:'10mg/vial', price:80}]
-  },
-  {
-    id:'pt141', name:'PT-141 (Bremelanotide)', cat:'Sexual Health',
-    info:'A melanocortin receptor agonist studied for sexual arousal and libido effects in both male and female research models.',
-    variants:[{sku:'P41', config:'10mg/vial', price:110}]
-  },
-  {
-    id:'hcg', name:'HCG', cat:'Sexual Health',
-    info:'Human Chorionic Gonadotropin — studied for LH-mimicking effects on testosterone production and fertility in research.',
-    variants:[{sku:'G5K', config:'5,000 IU/vial', price:150}]
-  },
-  {
-    id:'hmg', name:'HMG', cat:'Sexual Health',
-    info:'Human Menopausal Gonadotropin — contains FSH and LH activity, studied for follicular development and hormonal regulation.',
-    variants:[{sku:'G75', config:'75 IU/vial', price:140}]
-  },
-  {
-    id:'kisspeptin', name:'KissPeptin-10', cat:'Sexual Health',
-    info:'A neuropeptide studied for triggering GnRH release, puberty onset, and reproductive hormone regulation.',
-    variants:[
-      {sku:'KS5',  config:'5mg/vial',  price:100},
-      {sku:'KS10', config:'10mg/vial', price:140},
-    ]
-  },
-  // IV / Injectable Blends
-  {
-    id:'lcarnitine', name:'L-Carnitine', cat:'IV / Injectable Blends',
-    info:'Studied for fatty acid transport into mitochondria, energy metabolism, and exercise recovery support.',
-    variants:[{sku:'LC500', config:'500mg/10mL', price:140}]
-  },
-  {
-    id:'b12', name:'Vitamin B12', cat:'IV / Injectable Blends',
-    info:'Injectable B12 — studied for neurological function, red blood cell formation, DNA synthesis, and energy metabolism.',
-    variants:[{sku:'B12', config:'10mL/vial', price:90}]
-  },
-  {
-    id:'mic-carnitine', name:'MIC + Carnitine Blend', cat:'IV / Injectable Blends',
-    info:'Methionine/Choline/Carnitine/Dexpanthenol — researched for lipotropic fat metabolism and liver support.',
-    variants:[{sku:'LC120', config:'120mg/mL (10mL)', price:140}]
-  },
-  {
-    id:'amino-vit', name:'Amino + Vitamin Blend', cat:'IV / Injectable Blends',
-    info:'L-Carnitine/L-Arginine/Methionine/Inositol/Choline/B6/B5/B12 — comprehensive amino-vitamin support blend.',
-    variants:[{sku:'LC216', config:'216mg/mL (10mL)', price:140}]
-  },
-  {
-    id:'hhb', name:'Healthy Hair Skin Nails', cat:'IV / Injectable Blends',
-    info:'Niacin, Thiamine, Pantothenic Acid, Biotin, Folic Acid and more. Studied for connective tissue, keratin, and collagen support.',
-    variants:[{sku:'HHB', config:'150.3mg/mL (10mL)', price:150}]
-  },
-  {
-    id:'shb', name:'Super Human Blend', cat:'IV / Injectable Blends',
-    info:'Amino Acids + L-Carnitine + NAC. Researched for metabolic support, antioxidant activity, and muscle recovery.',
-    variants:[{sku:'SHB', config:'865mg/10mL', price:150}]
-  },
-  {
-    id:'relaxpm', name:'Relaxation PM', cat:'IV / Injectable Blends',
-    info:'GABA/Melatonin/Arginine/Glutamine — studied for sleep induction, stress reduction, and overnight recovery.',
-    variants:[{sku:'RP226', config:'226mg/mL (10mL)', price:150}]
-  },
-  {
-    id:'supershred', name:'Super Shred', cat:'IV / Injectable Blends',
-    info:'L-Carnitine/MIC/ATP/Albuterol/B12 — researched for fat mobilization, energy metabolism, and thermogenic effects.',
-    variants:[{sku:'LC553', config:'553mg/mL (10mL)', price:150}]
-  },
-  {
-    id:'lipoc', name:'Lipo-C Fat Blaster', cat:'IV / Injectable Blends',
-    info:'L-Carnitine/Methionine/Inositol/Choline/B12/B6/NADH — comprehensive lipotropic blend for fat metabolism support.',
-    variants:[{sku:'LC526', config:'526mg/mL (10mL)', price:150}]
-  },
-  {
-    id:'lemonbottle', name:'Lemon Bottle', cat:'IV / Injectable Blends',
-    info:'A lipolytic injection blend studied for localized fat breakdown and body contouring research applications.',
-    variants:[{sku:'LB', config:'10mg/vial', price:140}]
-  },
-  // Reconstitution
-  {
-    id:'sterilewater', name:'Sterile Water', cat:'Reconstitution Supplies',
-    info:'Pharmaceutical-grade reconstitution water for peptide and compound preparation.',
-    variants:[
-      {sku:'WA3',  config:'3mL/vial',  price:18},
-      {sku:'WA10', config:'10mL/vial', price:24},
-    ]
-  },
-  {
-    id:'bacwater', name:'Bacteriostatic Water', cat:'Reconstitution Supplies',
-    info:'0.9% Benzyl Alcohol — standard multi-use reconstitution water for peptide vials.',
-    variants:[{sku:'BA10', config:'10mL/vial', price:30}]
-  },
+const INFO = {
+  'SM5':'Semaglutide is a GLP-1 receptor agonist studied for appetite regulation and metabolic support. Research suggests it reduces caloric intake by mimicking satiety hormones.',
+  'SM10':'Semaglutide 10mg — GLP-1 receptor agonist studied for appetite regulation and metabolic support.',
+  'SM15':'Semaglutide 15mg — GLP-1 receptor agonist studied for appetite regulation and metabolic support.',
+  'SM20':'Semaglutide 20mg — GLP-1 receptor agonist studied for appetite and glucose metabolism.',
+  'SM30':'Semaglutide 30mg — maximum-concentration vial for advanced metabolic research protocols.',
+  'TR5':'Tirzepatide is a dual GIP/GLP-1 receptor agonist studied for insulin sensitivity, appetite suppression, and body composition.',
+  'TR10':'Tirzepatide 10mg — dual GIP/GLP-1 agonist studied for metabolic regulation and body composition.',
+  'TR15':'Tirzepatide 15mg — dual incretin receptor agonist studied for synergistic effects on blood glucose and appetite.',
+  'TR20':'Tirzepatide 20mg — dual GIP/GLP-1 agonist for intermediate-dose metabolic research.',
+  'TR30':'Tirzepatide 30mg — higher-dose dual agonist vial for advanced metabolic research.',
+  'TR40':'Tirzepatide 40mg — high-concentration dual GIP/GLP-1 agonist for research.',
+  'TR45':'Tirzepatide 45mg — near-maximum concentration dual agonist for advanced metabolic research.',
+  'TR50':'Tirzepatide 50mg — high-dose dual agonist for insulin sensitivity and metabolic function research.',
+  'TR60':'Tirzepatide 60mg — advanced research concentration for GIP/GLP-1 pathway studies.',
+  'TR80':'Tirzepatide 80mg — very high-dose vial for specialized metabolic research protocols.',
+  'TR100':'Tirzepatide 100mg — maximum-concentration vial for high-dose research studies.',
+  'RT5':'Retatrutide is a triple GIP/GLP-1/glucagon receptor agonist researched for effects on weight, metabolism, and lipid profiles.',
+  'RT10':'Retatrutide 10mg — triple agonist targeting GIP, GLP-1, and glucagon receptors for metabolic research.',
+  'RT15':'Retatrutide 15mg — triple incretin agonist for intermediate-dose metabolic research.',
+  'RT20':'Retatrutide 20mg — triple receptor agonist for advanced metabolic research protocols.',
+  'RT30':'Retatrutide 30mg — high-dose triple agonist for GLP-1/GIP/glucagon pathway research.',
+  'RT40':'Retatrutide 40mg — high-concentration triple agonist vial for advanced studies.',
+  'RT50':'Retatrutide 50mg — advanced research vial for triple receptor pathway investigation.',
+  'RT60':'Retatrutide 60mg — maximum-dose triple agonist vial for specialized research.',
+  'CGL5':'Cagrilintide is an amylin analogue studied for slowing gastric emptying and reducing appetite, often researched alongside GLP-1 agonists.',
+  'CGL10':'Cagrilintide 10mg — higher-dose amylin analogue for research into appetite and gastric function.',
+  'SUR10':'Survodutide is a dual glucagon/GLP-1 receptor agonist studied for lipid metabolism and energy expenditure.',
+  'MDT10':'Mazdutide is a GLP-1/glucagon dual receptor agonist researched for weight management and metabolic regulation.',
+  'RC10':'Combination of Retatrutide 5mg + Cagrilintide 5mg. Researched for synergistic triple-receptor and amylin effects on metabolism and appetite.',
+  'CS5':'Combination of Cagrilintide + Semaglutide 5mg. Studies combined amylin analogue and GLP-1 agonist pathway effects.',
+  'CS10':'Cagrilintide + Semaglutide 10mg — higher-dose dual-mechanism metabolic research blend.',
+  'TSM10':'Tesamorelin is a GHRH analogue that stimulates growth hormone release. Researched for body composition, visceral fat reduction, and IGF-1 levels.',
+  'Ti18':'Custom blend of Ipamorelin 6mg + Tesamorelin 12mg — studied for synergistic GH secretagogue effects via GHRH and GHRP pathways.',
+  'SMO5':'Sermorelin is a GHRH analogue that stimulates the pituitary to release GH. Studied for anti-aging, sleep quality, and body composition.',
+  'CD5':'CJC-1295 with DAC extends the half-life of GHRH activity. Studied for sustained GH and IGF-1 elevation in research models.',
+  'CND5':'CJC-1295 without DAC — shorter-acting GHRH analogue typically combined with a GHRP for pulsatile GH release.',
+  'CP10':'CJC-1295 No DAC 5mg + Ipamorelin 5mg. Researched for synergistic pulsatile GH release via GHRH and ghrelin pathways.',
+  'CP20':'CJC-1295 No DAC 10mg + Ipamorelin 10mg — higher-dose GH secretagogue blend for research.',
+  'IP5':'Ipamorelin is a selective GHRP studied for clean GH pulses with minimal cortisol or prolactin side effects.',
+  'G65':'GHRP-6 is a growth hormone releasing hexapeptide studied for GH stimulation and appetite regulation via ghrelin receptor activation.',
+  'FMP2':'PEG-MGF is a splice variant of IGF-1 studied for muscle repair, satellite cell activation, and localized tissue growth.',
+  'IG1':'IGF-1 LR3 is a long-acting analogue of Insulin-Like Growth Factor 1. Researched for anabolic effects on muscle tissue, cell proliferation, and nutrient uptake.',
+  'BC5':'BPC-157 (Body Protection Compound) is a pentadecapeptide studied for regenerative properties including tendon, ligament, gut, and nerve repair.',
+  'BC10':'BPC-157 10mg — higher-concentration healing peptide studied for tissue repair, angiogenesis, and gut mucosal protection.',
+  'TB5':'TB-500 (Thymosin Beta-4) is studied for actin regulation, angiogenesis, and systemic tissue repair including muscle, tendon, and cardiac tissue.',
+  'BB10':'BPC-157 5mg + TB-500 5mg. Synergistic tissue repair blend — BPC-157 targets localized healing while TB-500 promotes systemic recovery.',
+  'BBG70':'GLOW Blend — BPC-157 10mg + GHK-Cu 50mg + TB-500 10mg. Researched for combined regenerative, anti-inflammatory, and collagen-stimulating effects.',
+  'BBGK':'KLOW Blend — BPC-157 10mg + GHK-Cu 50mg + TB-500 10mg + KPV 10mg. Adds anti-inflammatory KPV to the GLOW formula for comprehensive recovery research.',
+  'CU100':'GHK-Cu (Copper Peptide) is studied for skin regeneration, collagen synthesis, wound healing, and anti-inflammatory effects. Also researched for hair growth.',
+  'ET50':'Epithalon is a tetrapeptide studied for telomere elongation, antioxidant activity, and regulation of the pineal gland and melatonin production.',
+  'MS40':'MOTS-c is a mitochondria-derived peptide studied for metabolic regulation, insulin sensitivity, and cellular energy homeostasis.',
+  '2S10':'SS-31 (Elamipretide) is a mitochondria-targeted peptide studied for cardioprotective, neuroprotective, and anti-aging effects at the cellular level.',
+  'TA5':'Thymosin Alpha-1 is a thymic peptide studied for immune modulation, T-cell activation, and antiviral and antifungal defense mechanisms.',
+  'TA10':'Thymosin Alpha-1 10mg — higher-dose immune modulating peptide for advanced research protocols.',
+  'NJ500':'NAD+ is a coenzyme studied for energy metabolism, DNA repair, sirtuin activation, and cellular anti-aging pathways.',
+  'NJ1000':'NAD+ 1000mg — high-dose coenzyme vial for intensive metabolic and longevity research.',
+  'GTT':'Glutathione is the body\'s master antioxidant, studied for detoxification, immune support, skin brightening, and mitochondrial health.',
+  'CBL60':'Cerebrolysin is a neuropeptide mixture studied for neuroprotection, neurogenesis, and cognitive enhancement in neurodegenerative research models.',
+  'TY10':'Thymalin is a thymic peptide studied for immune system regulation, neuroendocrine function, and anti-aging properties.',
+  'PI5':'Pinealon is a tripeptide studied for neuroprotection, circadian rhythm regulation, and cognitive function via pineal and CNS mechanisms.',
+  'PI10':'Pinealon 10mg — higher-dose neuropeptide for research into sleep, cognitive function, and pineal gland activity.',
+  'PI20':'Pinealon 20mg — high-dose vial for advanced neuroprotection and circadian rhythm research.',
+  '5AM5':'5-Amino-1MQ is a small molecule studied for NNMT enzyme inhibition, potentially promoting fat metabolism and mitochondrial function.',
+  'XA5':'Semax is a synthetic ACTH analogue studied for cognitive enhancement, neuroprotection, BDNF upregulation, and anxiety reduction.',
+  'SK5':'Selank is a synthetic analogue of tuftsin studied for anxiolytic effects, immune modulation, and cognitive enhancement without sedation.',
+  'KA10':'Selank 5mg + Semax 5mg. Researched for synergistic nootropic and anxiolytic effects targeting both BDNF and tuftsin pathways.',
+  'KA20':'Selank 10mg + Semax 10mg — higher-dose dual nootropic blend for advanced cognitive research.',
+  'VIP5':'VIP (Vasoactive Intestinal Peptide) is studied for neuroprotection, immune modulation, anti-inflammatory effects, and pulmonary vasodilation.',
+  'VIP10':'VIP 10mg — higher-dose vasoactive intestinal peptide for advanced immune and neuroprotective research.',
+  'DS5':'DSIP (Delta Sleep Inducing Peptide) is studied for sleep regulation, stress hormone modulation, and potential anti-epileptic properties.',
+  'KPV5':'KPV is a tripeptide derived from alpha-MSH studied for anti-inflammatory effects, particularly in gut inflammation, skin conditions, and wound healing.',
+  'LL37':'LL-37 is a human cathelicidin antimicrobial peptide studied for immune defense, wound healing, angiogenesis, and anti-biofilm properties.',
+  'NP810':'Snap-8 is an octapeptide studied as a topical anti-wrinkle agent that may reduce muscle contraction at the neuromuscular junction.',
+  'PC10':'PNC-27 is a peptide studied for selective targeting and disruption of cancer cell membranes while leaving healthy cells intact.',
+  'MT1':'Melanotan 1 is a synthetic alpha-MSH analogue studied for skin pigmentation, UV protection, and photoprotective mechanisms.',
+  'ML10':'Melanotan 2 (MT-2) is studied for skin tanning, libido effects via melanocortin receptors, and appetite suppression in research models.',
+  'P41':'PT-141 (Bremelanotide) is a melanocortin receptor agonist studied for sexual arousal and libido effects in both male and female research models.',
+  'G5K':'HCG 5,000 IU — studied for LH-mimicking effects on testosterone production and fertility in research.',
+  'G75':'HMG contains FSH and LH activity, studied for follicular development and hormonal regulation in research.',
+  'KS5':'Kisspeptin-10 is a neuropeptide studied for triggering GnRH release, puberty onset, and reproductive hormone regulation.',
+  'KS10':'Kisspeptin-10 10mg — higher-dose GnRH-stimulating peptide for advanced reproductive hormone research.',
+  'LC500':'L-Carnitine 500mg/10mL — studied for fatty acid transport into mitochondria, energy metabolism, and exercise recovery.',
+  'B12':'Vitamin B12 injectable — studied for neurological function, red blood cell formation, DNA synthesis, and energy metabolism.',
+  'LC120':'MIC + Carnitine Blend (Methionine/Choline/Carnitine/Dexpanthenol) — researched for lipotropic fat metabolism and liver support.',
+  'LC216':'Amino + Vitamin Blend (L-Carnitine/L-Arginine/Methionine/Inositol/Choline/B6/B5/B12) — comprehensive amino-vitamin support blend.',
+  'HHB':'Healthy Hair Skin Nails Blend — Niacin, Thiamine, Pantothenic Acid, Biotin, Folic Acid and more. Studied for connective tissue, keratin, and collagen support.',
+  'SHB':'Super Human Blend — Amino Acids + L-Carnitine + NAC. Researched for metabolic support, antioxidant activity, and muscle recovery.',
+  'RP226':'Relaxation PM (GABA/Melatonin/Arginine/Glutamine) — studied for sleep induction, stress reduction, and overnight recovery.',
+  'LC553':'Super Shred (L-Carnitine/MIC/ATP/Albuterol/B12) — researched for fat mobilization, energy metabolism, and thermogenic effects.',
+  'LC526':'Lipo-C Fat Blaster (L-Carnitine/Methionine/Inositol/Choline/B12/B6/NADH) — comprehensive lipotropic blend for fat metabolism support.',
+  'LB':'Lemon Bottle is a lipolytic injection blend studied for localized fat breakdown and body contouring research applications.',
+  'WA3':'Sterile Water 3mL — pharmaceutical-grade reconstitution water for peptide and compound preparation.',
+  'WA10':'Sterile Water 10mL — pharmaceutical-grade reconstitution water for larger-volume peptide preparation.',
+  'BA10':'Bacteriostatic Water 10mL (0.9% Benzyl Alcohol) — standard multi-use reconstitution water for peptide vials.',
+};
+
+const PRODUCTS=[
+  {sku:'SM5',name:'Semaglutide',config:'5mg/vial',price:100,cat:'GLP-1 / Weight Loss'},
+  {sku:'SM10',name:'Semaglutide',config:'10mg/vial',price:140,cat:'GLP-1 / Weight Loss'},
+  {sku:'SM15',name:'Semaglutide',config:'15mg/vial',price:180,cat:'GLP-1 / Weight Loss'},
+  {sku:'SM20',name:'Semaglutide',config:'20mg/vial',price:220,cat:'GLP-1 / Weight Loss'},
+  {sku:'SM30',name:'Semaglutide',config:'30mg/vial',price:280,cat:'GLP-1 / Weight Loss'},
+  {sku:'TR5',name:'Tirzepatide',config:'5mg/vial',price:60,cat:'GLP-1 / Weight Loss'},
+  {sku:'TR10',name:'Tirzepatide',config:'10mg/vial',price:80,cat:'GLP-1 / Weight Loss'},
+  {sku:'TR15',name:'Tirzepatide',config:'15mg/vial',price:140,cat:'GLP-1 / Weight Loss'},
+  {sku:'TR20',name:'Tirzepatide',config:'20mg/vial',price:180,cat:'GLP-1 / Weight Loss'},
+  {sku:'TR30',name:'Tirzepatide',config:'30mg/vial',price:200,cat:'GLP-1 / Weight Loss'},
+  {sku:'TR40',name:'Tirzepatide',config:'40mg/vial',price:230,cat:'GLP-1 / Weight Loss'},
+  {sku:'TR45',name:'Tirzepatide',config:'45mg/vial',price:275,cat:'GLP-1 / Weight Loss'},
+  {sku:'TR50',name:'Tirzepatide',config:'50mg/vial',price:285,cat:'GLP-1 / Weight Loss'},
+  {sku:'TR60',name:'Tirzepatide',config:'60mg/vial',price:300,cat:'GLP-1 / Weight Loss'},
+  {sku:'TR80',name:'Tirzepatide',config:'80mg/vial',price:325,cat:'GLP-1 / Weight Loss'},
+  {sku:'TR100',name:'Tirzepatide',config:'100mg/vial',price:400,cat:'GLP-1 / Weight Loss'},
+  {sku:'RT5',name:'Retatrutide',config:'5mg/vial',price:100,cat:'GLP-1 / Weight Loss'},
+  {sku:'RT10',name:'Retatrutide',config:'10mg/vial',price:195,cat:'GLP-1 / Weight Loss'},
+  {sku:'RT15',name:'Retatrutide',config:'15mg/vial',price:200,cat:'GLP-1 / Weight Loss'},
+  {sku:'RT20',name:'Retatrutide',config:'20mg/vial',price:250,cat:'GLP-1 / Weight Loss'},
+  {sku:'RT30',name:'Retatrutide',config:'30mg/vial',price:275,cat:'GLP-1 / Weight Loss'},
+  {sku:'RT40',name:'Retatrutide',config:'40mg/vial',price:300,cat:'GLP-1 / Weight Loss'},
+  {sku:'RT50',name:'Retatrutide',config:'50mg/vial',price:350,cat:'GLP-1 / Weight Loss'},
+  {sku:'RT60',name:'Retatrutide',config:'60mg/vial',price:400,cat:'GLP-1 / Weight Loss'},
+  {sku:'CGL5',name:'Cagrilintide',config:'5mg/vial',price:180,cat:'GLP-1 / Weight Loss'},
+  {sku:'CGL10',name:'Cagrilintide',config:'10mg/vial',price:360,cat:'GLP-1 / Weight Loss'},
+  {sku:'SUR10',name:'Survodutide',config:'10mg/vial',price:600,cat:'GLP-1 / Weight Loss'},
+  {sku:'MDT10',name:'Mazdutide',config:'10mg/vial',price:340,cat:'GLP-1 / Weight Loss'},
+  {sku:'RC10',name:'Retatrutide + Cagrilintide',config:'5mg+5mg/vial',price:260,cat:'Combo / Blends'},
+  {sku:'CS5',name:'Cagrilintide + Semaglutide',config:'5mg/vial',price:125,cat:'Combo / Blends'},
+  {sku:'CS10',name:'Cagrilintide + Semaglutide',config:'10mg/vial',price:175,cat:'Combo / Blends'},
+  {sku:'TSM10',name:'Tesamorelin',config:'10mg/vial',price:150,cat:'Growth Hormone'},
+  {sku:'Ti18',name:'IP 6mg + TSM 12mg (custom)',config:'18mg/vial',price:560,cat:'Growth Hormone'},
+  {sku:'SMO5',name:'Sermorelin Acetate',config:'5mg/vial',price:100,cat:'Growth Hormone'},
+  {sku:'CD5',name:'CJC-1295 DAC',config:'5mg/vial',price:280,cat:'Growth Hormone'},
+  {sku:'CND5',name:'CJC-1295 No DAC',config:'5mg/vial',price:140,cat:'Growth Hormone'},
+  {sku:'CP10',name:'CJC-1295 No DAC + Ipamorelin',config:'5mg+5mg/vial',price:160,cat:'Growth Hormone'},
+  {sku:'CP20',name:'CJC-1295 No DAC + Ipamorelin',config:'10mg+10mg/vial',price:240,cat:'Growth Hormone'},
+  {sku:'IP5',name:'Ipamorelin',config:'5mg/vial',price:60,cat:'Growth Hormone'},
+  {sku:'G65',name:'GHRP-6 Acetate',config:'5mg/vial',price:40,cat:'Growth Hormone'},
+  {sku:'FMP2',name:'PEG MGF',config:'2mg/vial',price:160,cat:'Growth Hormone'},
+  {sku:'IG1',name:'IGF-1 LR3',config:'1mg/vial',price:200,cat:'Growth Hormone'},
+  {sku:'BC5',name:'BPC-157',config:'5mg/vial',price:74,cat:'Recovery / Healing'},
+  {sku:'BC10',name:'BPC-157',config:'10mg/vial',price:140,cat:'Recovery / Healing'},
+  {sku:'TB5',name:'TB-500 / TB4',config:'5mg/vial',price:130,cat:'Recovery / Healing'},
+  {sku:'BB10',name:'BPC-157 + TB-500',config:'5mg+5mg/vial',price:160,cat:'Recovery / Healing'},
+  {sku:'BBG70',name:'GLOW Blend',config:'BPC+GHK-Cu+TB500 / 70mg',price:160,cat:'Recovery / Healing'},
+  {sku:'BBGK',name:'KLOW Blend',config:'BPC+GHK-Cu+TB500+KPV / 80mg',price:180,cat:'Recovery / Healing'},
+  {sku:'CU100',name:'GHK-Cu',config:'100mg/vial',price:96,cat:'Anti-Aging / Longevity'},
+  {sku:'ET50',name:'Epithalon',config:'50mg/vial',price:150,cat:'Anti-Aging / Longevity'},
+  {sku:'MS40',name:'MOTS-c',config:'40mg/vial',price:150,cat:'Anti-Aging / Longevity'},
+  {sku:'2S10',name:'SS-31',config:'10mg/vial',price:150,cat:'Anti-Aging / Longevity'},
+  {sku:'TA5',name:'Thymosin Alpha-1',config:'5mg/vial',price:130,cat:'Anti-Aging / Longevity'},
+  {sku:'TA10',name:'Thymosin Alpha-1',config:'10mg/vial',price:145,cat:'Anti-Aging / Longevity'},
+  {sku:'NJ500',name:'NAD+',config:'500mg/vial',price:120,cat:'Anti-Aging / Longevity'},
+  {sku:'NJ1000',name:'NAD+',config:'1000mg/vial',price:135,cat:'Anti-Aging / Longevity'},
+  {sku:'GTT',name:'Glutathione',config:'1500mg/vial',price:125,cat:'Anti-Aging / Longevity'},
+  {sku:'CBL60',name:'Cerebrolysin',config:'60mg/vial',price:170,cat:'Anti-Aging / Longevity'},
+  {sku:'TY10',name:'Thymalin',config:'10mg/vial',price:100,cat:'Anti-Aging / Longevity'},
+  {sku:'PI5',name:'Pinealon',config:'5mg/vial',price:120,cat:'Anti-Aging / Longevity'},
+  {sku:'PI10',name:'Pinealon',config:'10mg/vial',price:180,cat:'Anti-Aging / Longevity'},
+  {sku:'PI20',name:'Pinealon',config:'20mg/vial',price:150,cat:'Anti-Aging / Longevity'},
+  {sku:'5AM5',name:'5-Amino-1MQ',config:'5mg/vial',price:80,cat:'Anti-Aging / Longevity'},
+  {sku:'XA5',name:'Semax',config:'5mg/vial',price:80,cat:'Cognitive / Neuro'},
+  {sku:'SK5',name:'Selank',config:'5mg/vial',price:80,cat:'Cognitive / Neuro'},
+  {sku:'KA10',name:'Selank + Semax',config:'5mg+5mg/vial',price:136,cat:'Cognitive / Neuro'},
+  {sku:'KA20',name:'Selank + Semax',config:'10mg+10mg/vial',price:125,cat:'Cognitive / Neuro'},
+  {sku:'VIP5',name:'VIP (Vasoactive Intestinal Peptide)',config:'5mg/vial',price:150,cat:'Cognitive / Neuro'},
+  {sku:'VIP10',name:'VIP (Vasoactive Intestinal Peptide)',config:'10mg/vial',price:280,cat:'Cognitive / Neuro'},
+  {sku:'DS5',name:'DSIP',config:'5mg/vial',price:100,cat:'Cognitive / Neuro'},
+  {sku:'KPV5',name:'KPV',config:'5mg/vial',price:70,cat:'Immune / Inflammation'},
+  {sku:'LL37',name:'LL-37',config:'5mg/vial',price:187.50,cat:'Immune / Inflammation'},
+  {sku:'NP810',name:'Snap-8',config:'10mg/vial',price:80,cat:'Immune / Inflammation'},
+  {sku:'PC10',name:'PNC-27',config:'10mg/vial',price:280,cat:'Immune / Inflammation'},
+  {sku:'MT1',name:'Melanotan 1',config:'10mg/vial',price:100,cat:'Sexual Health'},
+  {sku:'ML10',name:'Melanotan 2 (MT-2)',config:'10mg/vial',price:80,cat:'Sexual Health'},
+  {sku:'P41',name:'PT-141 (Bremelanotide)',config:'10mg/vial',price:110,cat:'Sexual Health'},
+  {sku:'G5K',name:'HCG',config:'5,000 IU/vial',price:150,cat:'Sexual Health'},
+  {sku:'G75',name:'HMG',config:'75 IU/vial',price:140,cat:'Sexual Health'},
+  {sku:'KS5',name:'KissPeptin-10',config:'5mg/vial',price:100,cat:'Sexual Health'},
+  {sku:'KS10',name:'KissPeptin-10',config:'10mg/vial',price:140,cat:'Sexual Health'},
+  {sku:'LC500',name:'L-Carnitine',config:'500mg/10mL',price:140,cat:'IV / Injectable Blends'},
+  {sku:'B12',name:'Vitamin B12',config:'10mL/vial',price:90,cat:'IV / Injectable Blends'},
+  {sku:'LC120',name:'MIC + Carnitine Blend',config:'120mg/mL (10mL)',price:140,cat:'IV / Injectable Blends'},
+  {sku:'LC216',name:'Amino + Vitamin Blend',config:'216mg/mL (10mL)',price:140,cat:'IV / Injectable Blends'},
+  {sku:'HHB',name:'Healthy Hair Skin Nails',config:'150.3mg/mL (10mL)',price:150,cat:'IV / Injectable Blends'},
+  {sku:'SHB',name:'Super Human Blend',config:'865mg/10mL',price:150,cat:'IV / Injectable Blends'},
+  {sku:'RP226',name:'Relaxation PM',config:'226mg/mL (10mL)',price:150,cat:'IV / Injectable Blends'},
+  {sku:'LC553',name:'Super Shred',config:'553mg/mL (10mL)',price:150,cat:'IV / Injectable Blends'},
+  {sku:'LC526',name:'Lipo-C Fat Blaster',config:'526mg/mL (10mL)',price:150,cat:'IV / Injectable Blends'},
+  {sku:'LB',name:'Lemon Bottle',config:'10mg/vial',price:140,cat:'IV / Injectable Blends'},
+  {sku:'WA3',name:'Sterile Water',config:'3mL/vial',price:18,cat:'Reconstitution Supplies'},
+  {sku:'WA10',name:'Sterile Water',config:'10mL/vial',price:24,cat:'Reconstitution Supplies'},
+  {sku:'BA10',name:'Bacteriostatic Water',config:'10mL/vial',price:30,cat:'Reconstitution Supplies'},
 ];
 
-// cart keyed by compound id, stores {compound, variantIdx, qty}
-const cart = {};
-
-const CATS = ['All', ...new Set(COMPOUNDS.map(c => c.cat))];
-let activeCat = 'All', searchQ = '';
-
-const fmt = n => '$' + n.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+const CATS=['All',...new Set(PRODUCTS.map(p=>p.cat))];
+let cart={}, activeCat='All', searchQ='';
+const fmt=n=>'$'+n.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g,',');
+const subtotal=()=>Object.entries(cart).reduce((s,[k,v])=>{const p=PRODUCTS.find(x=>x.sku===k);return s+(p?p.price*v:0);},0);
+const cartTotal=()=>subtotal()+SHIPPING;
+const cartCount=()=>Object.values(cart).reduce((s,v)=>s+v,0);
 
 function renderTabs(){
-  document.getElementById('catTabs').innerHTML = CATS.map(c =>
-    `<div class="cat-tab${c===activeCat?' active':''}" onclick="setCat('${c.replace(/'/g,"\\'")}')"> ${c}</div>`
-  ).join('');
+  document.getElementById('catTabs').innerHTML=CATS.map(c=>`<div class="cat-tab${c===activeCat?' active':''}" onclick="setCat('${c.replace(/'/g,"\\'")}')"> ${c}</div>`).join('');
 }
 function setCat(c){activeCat=c;renderCatalog();renderTabs();}
 function filterProducts(){searchQ=document.getElementById('searchInput').value.toLowerCase();renderCatalog();}
 
 function renderCatalog(){
-  const groups = {};
-  COMPOUNDS.filter(c => {
-    const matchCat = activeCat==='All' || c.cat===activeCat;
-    const matchQ = !searchQ || c.name.toLowerCase().includes(searchQ) || c.cat.toLowerCase().includes(searchQ);
-    return matchCat && matchQ;
-  }).forEach(c => {
-    if(!groups[c.cat]) groups[c.cat]=[];
-    groups[c.cat].push(c);
-  });
-  const el = document.getElementById('catalogContainer');
-  if(!Object.keys(groups).length){el.innerHTML='<div class="no-results">No products match your search.</div>';return;}
-  el.innerHTML = Object.entries(groups).map(([cat,compounds]) =>
-    `<div class="section-label">${cat}</div>
-     <div class="product-grid">${compounds.map(renderCard).join('')}</div>`
-  ).join('');
+  const groups={};
+  PRODUCTS.filter(p=>(activeCat==='All'||p.cat===activeCat)&&(!searchQ||p.name.toLowerCase().includes(searchQ)||p.sku.toLowerCase().includes(searchQ)||p.config.toLowerCase().includes(searchQ)))
+    .forEach(p=>{if(!groups[p.cat])groups[p.cat]=[];groups[p.cat].push(p);});
+  const c=document.getElementById('catalogContainer');
+  if(!Object.keys(groups).length){c.innerHTML='<div class="no-results">No products match your search.</div>';return;}
+  c.innerHTML=Object.entries(groups).map(([cat,prods])=>`<div class="section-label">${cat}</div><div class="product-grid">${prods.map(renderCard).join('')}</div>`).join('');
 }
 
-function renderCard(c){
-  const entry = cart[c.id];
-  const inCart = entry && entry.qty > 0;
-  const varIdx = entry ? entry.variantIdx : 0;
-  const v = c.variants[varIdx];
-  const qty = entry ? entry.qty : 0;
-
-  const options = c.variants.map((vr,i) =>
-    `<option value="${i}" ${i===varIdx?'selected':''}>${vr.config} &mdash; ${fmt(vr.price)}</option>`
-  ).join('');
-
-  const sizeRow = c.variants.length > 1
-    ? `<div class="pc-size-row">
-        <span class="pc-size-label">Size:</span>
-        <select class="pc-select" onchange="changeSize('${c.id}',this.value)">${options}</select>
-       </div>`
-    : `<div style="font-size:12px;color:var(--text-muted);font-family:'DM Mono',monospace">${v.config}</div>`;
-
-  return `<div class="product-card${inCart?' in-cart':''}" id="card-${c.id}">
-    <div class="pc-name">${c.name}</div>
-    <div class="pc-info">${c.info}</div>
-    ${sizeRow}
+function renderCard(p){
+  const qty=cart[p.sku]||0;
+  const info=INFO[p.sku]||'';
+  return `<div class="product-card${qty>0?' in-cart':''}" id="card-${p.sku}">
+    <div class="pc-sku">${p.sku}${info?` <button class="info-btn" onclick="toggleInfo('${p.sku}',event)">i</button>`:''}</div>
+    <div class="pc-name">${p.name}</div>
+    <div class="pc-config">${p.config}</div>
+    ${info?`<div class="pc-info" id="info-${p.sku}">${info}</div>`:''}
     <div class="pc-footer">
-      <div class="pc-price" id="price-${c.id}">${fmt(v.price)}</div>
+      <div class="pc-price">${fmt(p.price)}</div>
       <div class="pc-qty">
-        <button class="qty-btn" onclick="changeQty('${c.id}',-1)">&#8722;</button>
-        <span class="qty-num" id="qty-${c.id}">${qty}</span>
-        <button class="qty-btn" onclick="changeQty('${c.id}',1)">+</button>
+        <button class="qty-btn" onclick="changeQty('${p.sku}',-1)">&#8722;</button>
+        <span class="qty-num" id="qty-${p.sku}">${qty}</span>
+        <button class="qty-btn" onclick="changeQty('${p.sku}',1)">+</button>
       </div>
     </div>
   </div>`;
 }
 
-function changeSize(id, idx){
-  idx = parseInt(idx);
-  const c = COMPOUNDS.find(x => x.id===id);
-  if(!cart[id]) cart[id] = {compound:c, variantIdx:idx, qty:0};
-  else cart[id].variantIdx = idx;
-  const v = c.variants[idx];
-  const priceEl = document.getElementById('price-'+id);
-  if(priceEl) priceEl.textContent = fmt(v.price);
+function toggleInfo(sku,e){e.stopPropagation();const el=document.getElementById('info-'+sku);if(el)el.classList.toggle('hidden');}
+
+function changeQty(sku,delta){
+  cart[sku]=Math.max(0,(cart[sku]||0)+delta);
+  if(!cart[sku])delete cart[sku];
+  const q=document.getElementById('qty-'+sku);
+  const c=document.getElementById('card-'+sku);
+  if(q)q.textContent=cart[sku]||0;
+  if(c){if(cart[sku])c.classList.add('in-cart');else c.classList.remove('in-cart');}
   updateCartBar();
 }
-
-function changeQty(id, delta){
-  const c = COMPOUNDS.find(x => x.id===id);
-  if(!cart[id]) cart[id] = {compound:c, variantIdx:0, qty:0};
-  cart[id].qty = Math.max(0, cart[id].qty + delta);
-  if(cart[id].qty === 0) delete cart[id];
-  const qEl = document.getElementById('qty-'+id);
-  const cEl = document.getElementById('card-'+id);
-  if(qEl) qEl.textContent = cart[id] ? cart[id].qty : 0;
-  if(cEl){ if(cart[id]) cEl.classList.add('in-cart'); else cEl.classList.remove('in-cart'); }
-  updateCartBar();
-}
-
-function subtotal(){
-  return Object.values(cart).reduce((s,e) => {
-    const v = e.compound.variants[e.variantIdx];
-    return s + v.price * e.qty;
-  }, 0);
-}
-function cartTotal(){ return subtotal() + SHIPPING; }
-function cartCount(){ return Object.values(cart).reduce((s,e) => s+e.qty, 0); }
 
 function updateCartBar(){
-  const n=cartCount(), t=cartTotal();
-  document.getElementById('cartSummary').innerHTML = n
-    ? `<strong>${n} item${n!==1?'s':''}</strong> &nbsp;&middot;&nbsp; ${fmt(t)}`
-    : 'No items selected';
-  document.getElementById('checkoutBtn').disabled = !n;
+  const n=cartCount(),t=cartTotal();
+  document.getElementById('cartSummary').innerHTML=n?`<strong>${n} item${n!==1?'s':''}</strong> &nbsp;&middot;&nbsp; ${fmt(t)}`:'No items selected';
+  document.getElementById('checkoutBtn').disabled=!n;
 }
 
 function openCheckout(){document.getElementById('checkoutModal').classList.add('open');renderStep1();}
 function closeModal(){document.getElementById('checkoutModal').classList.remove('open');}
 
 function renderStep1(){
-  const items = Object.values(cart).map(e => {
-    const v = e.compound.variants[e.variantIdx];
-    return `<div class="order-item">
-      <div>
-        <div class="order-item-name">${e.compound.name}</div>
-        <div class="order-item-meta">${v.config} &middot; ${v.sku} &middot; Qty ${e.qty}</div>
-      </div>
-      <div class="order-item-price">${fmt(v.price * e.qty)}</div>
-    </div>`;
-  }).join('');
   document.getElementById('modalContent').innerHTML=`
     <h2>Your order</h2>
-    <div class="order-items">${items}</div>
-    <div class="total-row" style="background:transparent;font-weight:400;font-size:13px;padding:6px 13px"><span style="color:var(--text-muted)">Subtotal</span><span style="color:var(--text-muted)">${fmt(subtotal())}</span></div>
-    <div class="total-row" style="background:transparent;font-weight:400;font-size:13px;padding:6px 13px"><span style="color:var(--text-muted)">Shipping</span><span style="color:var(--text-muted)">$30.00</span></div>
-    <div class="total-row"><span>Order total</span><span>${fmt(cartTotal())}</span></div>
+    <div class="order-items">
+      ${Object.entries(cart).map(([sku,qty])=>{const p=PRODUCTS.find(x=>x.sku===sku);return`<div class="order-item"><div><div class="order-item-name">${p.name}</div><div class="order-item-meta">${p.config} &middot; ${p.sku} &middot; Qty ${qty}</div></div><div class="order-item-price">${fmt(p.price*qty)}</div></div>`;}).join('')}
+    </div>
+    <div class="total-row"><span>Subtotal</span><span>${fmt(subtotal())}</span></div>
+    <div class="total-row"><span>Shipping</span><span>$30.00</span></div>
+    <div class="total-row grand"><span>Order total</span><span>${fmt(cartTotal())}</span></div>
     <h3>Contact information</h3>
     <div class="form-row">
       <div class="form-group"><label>First name *</label><input id="f_first" placeholder="Jane"></div>
@@ -667,24 +423,20 @@ function submitContact(){
 }
 
 function renderPayment(c){
-  const total = cartTotal();
-  const ref = 'ORD-'+Math.random().toString(36).slice(2,8).toUpperCase();
-  window._pendingOrder = {...c, ref, total,
-    items: Object.values(cart).map(e => {
-      const v = e.compound.variants[e.variantIdx];
-      return {sku:v.sku, name:e.compound.name, config:v.config, qty:e.qty, price:v.price, lineTotal:v.price*e.qty};
+  const total=cartTotal();
+  const ref='ORD-'+Math.random().toString(36).slice(2,8).toUpperCase();
+  window._pendingOrder={...c,ref,total,shipping:SHIPPING,
+    items:Object.entries(cart).map(([sku,qty])=>{
+      const p=PRODUCTS.find(x=>x.sku===sku);
+      return{sku,name:p.name,config:p.config,qty,price:p.price,lineTotal:p.price*qty};
     })
   };
-  const itemRows = Object.values(cart).map(e => {
-    const v = e.compound.variants[e.variantIdx];
-    return `<div class="order-item"><div><div class="order-item-name">${e.compound.name}</div><div class="order-item-meta">${v.config} &middot; Qty ${e.qty}</div></div><div class="order-item-price">${fmt(v.price*e.qty)}</div></div>`;
-  }).join('');
   document.getElementById('modalContent').innerHTML=`
     <h2>Send payment via Venmo</h2>
     <div class="venmo-box">
       <div class="v-label">Venmo handle</div>
       <div class="v-handle">@michael-taba</div>
-      <div class="v-amount">Amount: <strong>${fmt(total)}</strong></div>
+      <div class="v-amount">Amount: <strong>${fmt(total)}</strong> (includes $30 shipping)</div>
       <div class="v-note">Include in your Venmo note:<br><strong>${ref} &mdash; ${c.first} ${c.last}</strong></div>
     </div>
     <h3>Payment steps</h3>
@@ -706,10 +458,12 @@ function renderPayment(c){
       ${c.notes?`<br><span style="color:var(--text-muted)">Note: ${c.notes}</span>`:''}
     </div>
     <div class="order-items">
-      ${itemRows}
-      <div class="order-item" style="font-weight:600"><span>Total</span><span class="order-item-price">${fmt(total)}</span></div>
+      ${Object.entries(cart).map(([sku,qty])=>{const p=PRODUCTS.find(x=>x.sku===sku);return`<div class="order-item"><div><div class="order-item-name">${p.name}</div><div class="order-item-meta">${p.config} &middot; Qty ${qty}</div></div><div class="order-item-price">${fmt(p.price*qty)}</div></div>`;}).join('')}
     </div>
-    <p style="font-size:11px;color:var(--text-light);line-height:1.5;padding:9px 11px;border:1px solid var(--border);border-radius:var(--radius);margin-bottom:1rem">
+    <div class="total-row"><span>Subtotal</span><span>${fmt(subtotal())}</span></div>
+    <div class="total-row"><span>Shipping</span><span>$30.00</span></div>
+    <div class="total-row grand"><span>Total</span><span>${fmt(total)}</span></div>
+    <p style="font-size:11px;color:var(--text-light);line-height:1.5;padding:9px 11px;border:1px solid var(--border);border-radius:var(--radius);margin-bottom:1rem;margin-top:.5rem">
       By completing this order you confirm these compounds are for research purposes only, not for human consumption, and not for resale.
     </p>
     <div class="btn-row">
@@ -722,16 +476,13 @@ function renderPayment(c){
 function submitOrder(){
   const btn=document.getElementById('submitBtn');
   const msg=document.getElementById('submittingMsg');
-  btn.disabled=true;
-  btn.textContent='Submitting…';
-  msg.style.display='block';
+  btn.disabled=true;btn.textContent='Submitting\u2026';msg.style.display='block';
   const order=window._pendingOrder;
   const payload=encodeURIComponent(JSON.stringify(order));
   const url=APPS_SCRIPT_URL+'?payload='+payload;
   const img=new Image();
   img.onload=img.onerror=function(){showSuccess(order.ref,order.email);};
   img.src=url;
-  // Also try fetch as backup
   fetch(url,{method:'GET',mode:'no-cors'}).catch(function(){});
   setTimeout(function(){showSuccess(order.ref,order.email);},3000);
 }
@@ -752,8 +503,7 @@ function showSuccess(ref,email){
     </div>`;
 }
 
-function resetCart(){Object.keys(cart).forEach(k=>delete cart[k]);updateCartBar();renderCatalog();}
-
+function resetCart(){cart={};updateCartBar();renderCatalog();}
 renderTabs();
 renderCatalog();
 updateCartBar();
